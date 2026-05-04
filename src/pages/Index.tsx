@@ -313,12 +313,12 @@ const Index = () => {
       </section>
 
       {/* WHY CHOOSE */}
-      <section className="py-20 bg-card/40">
-        <div className="container max-w-5xl">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-5xl">علاش تختاره؟</h2>
+      <section className="py-14 sm:py-20 bg-card/40">
+        <div className="container max-w-5xl px-4">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl">علاش تختاره؟</h2>
           </div>
-          <div className="grid sm:grid-cols-2 gap-4">
+          <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
             {[
               { icon: Wrench, t: "تركيب سهل بدون أدوات" },
               { icon: Cpu, t: "متوافق مع أغلب الكيسات" },
@@ -327,12 +327,12 @@ const Index = () => {
             ].map(({ icon: Icon, t }) => (
               <div
                 key={t}
-                className="flex items-center gap-4 p-6 rounded-2xl bg-gradient-card border border-border shadow-card hover:shadow-glow transition-all"
+                className="flex items-center gap-3 sm:gap-4 p-4 sm:p-6 rounded-2xl bg-gradient-card border border-border shadow-card hover:shadow-glow transition-all"
               >
-                <div className="w-12 h-12 rounded-xl bg-gradient-primary flex items-center justify-center shrink-0 shadow-blue">
-                  <Icon className="w-6 h-6 text-primary-foreground" />
+                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-gradient-primary flex items-center justify-center shrink-0 shadow-blue">
+                  <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-primary-foreground" />
                 </div>
-                <span className="text-lg font-bold">{t}</span>
+                <span className="text-base sm:text-lg font-bold">{t}</span>
                 <Check className="w-5 h-5 text-[hsl(var(--rgb-cyan))] mr-auto" />
               </div>
             ))}
@@ -341,29 +341,29 @@ const Index = () => {
       </section>
 
       {/* REVIEWS */}
-      <section className="py-20">
-        <div className="container">
-          <div className="text-center mb-12 space-y-3">
-            <h2 className="text-3xl md:text-5xl">آراء العملاء</h2>
+      <section className="py-14 sm:py-20">
+        <div className="container px-4">
+          <div className="text-center mb-8 sm:mb-12 space-y-3">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl">آراء العملاء</h2>
             <div className="flex items-center justify-center gap-1">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-6 h-6 fill-[hsl(var(--rgb-cyan))] text-[hsl(var(--rgb-cyan))]" />
+                <Star key={i} className="w-5 h-5 sm:w-6 sm:h-6 fill-[hsl(var(--rgb-cyan))] text-[hsl(var(--rgb-cyan))]" />
               ))}
             </div>
           </div>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
             {[
               { n: "أحمد", c: "الجزائر العاصمة", r: "زاد عطالي شكل PC كامل 🔥 من أحسن ما شريت" },
               { n: "يوسف", c: "وهران", r: "الشاشة حاجة خرافية، تعرض كل شيء بشكل احترافي" },
               { n: "كريم", c: "قسنطينة", r: "منتج يستاهل السعر، التركيب سهل والجودة ممتازة" },
             ].map((rev) => (
-              <Card key={rev.n} className="p-8 bg-gradient-card shadow-card border-border">
+              <Card key={rev.n} className="p-6 sm:p-8 bg-gradient-card shadow-card border-border">
                 <div className="flex gap-1 mb-3">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} className="w-4 h-4 fill-[hsl(var(--rgb-cyan))] text-[hsl(var(--rgb-cyan))]" />
                   ))}
                 </div>
-                <p className="text-foreground leading-relaxed mb-4 text-lg">"{rev.r}"</p>
+                <p className="text-foreground leading-relaxed mb-4 text-base sm:text-lg">"{rev.r}"</p>
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-gradient-primary flex items-center justify-center text-primary-foreground font-bold shadow-blue">
                     {rev.n[0]}
@@ -380,21 +380,21 @@ const Index = () => {
       </section>
 
       {/* PRICE / OFFER */}
-      <section id="order" className="py-20 relative overflow-hidden">
+      <section id="order" className="py-14 sm:py-20 relative overflow-hidden">
         <div className="absolute inset-0 grid-bg opacity-40" />
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-primary/20 blur-3xl rounded-full" />
-        <div className="container relative max-w-3xl">
-          <Card className="rgb-border p-8 md:p-12 bg-card text-center shadow-glow">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-primary text-primary-foreground font-bold text-sm mb-6 shadow-blue">
+        <div className="container relative max-w-3xl px-4">
+          <Card className="rgb-border p-6 sm:p-8 md:p-12 bg-card text-center shadow-glow">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-primary text-primary-foreground font-bold text-sm mb-5 sm:mb-6 shadow-blue">
               <Sparkles className="w-4 h-4" /> عرض خاص
             </div>
-            <h2 className="text-3xl md:text-5xl mb-4">احصل عليه الآن</h2>
-            <div className="flex items-baseline justify-center gap-2 mb-8">
-              <span className="text-6xl md:text-7xl font-black text-gradient text-glow">9800</span>
-              <span className="text-2xl font-bold">دج</span>
+            <h2 className="text-2xl sm:text-3xl md:text-5xl mb-4">احصل عليه الآن</h2>
+            <div className="flex items-baseline justify-center gap-2 mb-6 sm:mb-8">
+              <span className="text-5xl sm:text-6xl md:text-7xl font-black text-gradient text-glow">9800</span>
+              <span className="text-xl sm:text-2xl font-bold">دج</span>
             </div>
 
-            <div className="grid sm:grid-cols-3 gap-3 mb-8">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-6 sm:mb-8">
               {[
                 { icon: CreditCard, t: "دفع عند الاستلام" },
                 { icon: Truck, t: "توصيل لكل الجزائر" },
@@ -411,34 +411,34 @@ const Index = () => {
             </div>
 
             <form
-              className="space-y-4 text-right"
+              className="space-y-3 sm:space-y-4 text-right"
               onSubmit={(e) => {
                 e.preventDefault();
                 alert("شكراً! راح نتصلو بيك قريب لتأكيد الطلبية.");
               }}
             >
-              <div className="grid sm:grid-cols-2 gap-4">
+              <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
                 <input
                   required
                   placeholder="الاسم الكامل"
-                  className="w-full px-5 py-4 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-ring text-right"
+                  className="w-full px-4 sm:px-5 py-3 sm:py-4 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-ring text-right"
                 />
                 <input
                   required
                   type="tel"
                   placeholder="رقم الهاتف"
-                  className="w-full px-5 py-4 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-ring text-right"
+                  className="w-full px-4 sm:px-5 py-3 sm:py-4 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-ring text-right"
                 />
               </div>
               <input
                 required
                 placeholder="الولاية / العنوان"
-                className="w-full px-5 py-4 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-ring text-right"
+                className="w-full px-4 sm:px-5 py-3 sm:py-4 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-ring text-right"
               />
               <Button
                 type="submit"
                 size="lg"
-                className="w-full bg-gradient-primary text-primary-foreground hover:opacity-95 shadow-glow text-xl font-black py-7 rounded-2xl animate-pulse-glow"
+                className="w-full bg-gradient-primary text-primary-foreground hover:opacity-95 shadow-glow text-base sm:text-xl font-black py-6 sm:py-7 rounded-2xl animate-pulse-glow"
               >
                 اطلب الآن وطور Setup تاعك 🚀
               </Button>

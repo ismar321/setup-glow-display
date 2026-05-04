@@ -248,40 +248,43 @@ const Index = () => {
       </section>
 
       {/* LIFESTYLE GALLERY */}
-      <section className="py-20 bg-card/40">
-        <div className="container">
-          <div className="text-center mb-12 space-y-3">
-            <h2 className="text-3xl md:text-5xl">شوف الجمالية بعينيك</h2>
-            <p className="text-muted-foreground text-lg">شاشة Anime + إحصائيات Live داخل الكيس</p>
+      <section className="py-14 sm:py-20 bg-card/40">
+        <div className="container px-4">
+          <div className="text-center mb-8 sm:mb-12 space-y-3">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl">شوف الجمالية بعينيك</h2>
+            <p className="text-muted-foreground text-base sm:text-lg">شاشة Anime + إحصائيات Live داخل الكيس</p>
           </div>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="overflow-hidden rounded-3xl shadow-card border border-border">
-              <img src={productScreen} alt="شاشة الحامل تعرض إحصائيات الجهاز" className="w-full h-full object-cover zoom-img" />
+          <div className="grid grid-cols-2 md:grid-cols-2 gap-3 sm:gap-6">
+            <div className="overflow-hidden rounded-2xl sm:rounded-3xl shadow-card border border-border aspect-square">
+              <img src={productAnime} alt="شاشة الحامل تعرض شخصية أنمي" className="w-full h-full object-cover zoom-img" />
             </div>
-            <div className="overflow-hidden rounded-3xl shadow-card border border-border">
-              <img src={productSide} alt="منظر جانبي للحامل داخل الكيس" className="w-full h-full object-cover zoom-img" />
+            <div className="overflow-hidden rounded-2xl sm:rounded-3xl shadow-card border border-border aspect-square">
+              <img src={productStats} alt="شاشة تعرض إحصائيات الجهاز ووقت" className="w-full h-full object-cover zoom-img" />
             </div>
-            <div className="md:col-span-2 overflow-hidden rounded-3xl shadow-glow border border-border">
-              <img src={productCase} alt="إعداد PC كامل مع الحامل" className="w-full object-cover zoom-img" />
+            <div className="overflow-hidden rounded-2xl sm:rounded-3xl shadow-card border border-border aspect-square">
+              <img src={productCpu} alt="شاشة تعرض استهلاك CPU" className="w-full h-full object-cover zoom-img" />
+            </div>
+            <div className="overflow-hidden rounded-2xl sm:rounded-3xl shadow-glow border border-border aspect-square">
+              <img src={productDashboard} alt="شاشة Dashboard أنيقة" className="w-full h-full object-cover zoom-img" />
             </div>
           </div>
 
-          <div className="text-center mt-12">
+          <div className="text-center mt-10 sm:mt-12">
             <CTAButton>اطلب الآن وحوّل Setup تاعك</CTAButton>
           </div>
         </div>
       </section>
 
       {/* VMAX SOFTWARE */}
-      <section className="py-16">
-        <div className="container max-w-5xl">
+      <section className="py-12 sm:py-16">
+        <div className="container max-w-5xl px-4">
           <div className="text-center mb-8 space-y-3">
-            <h2 className="text-2xl md:text-4xl">
-              تحكم كامل مع برنامج VMAX <Gamepad2 className="inline w-7 h-7 text-[hsl(var(--rgb-cyan))]" />
+            <h2 className="text-xl sm:text-2xl md:text-4xl">
+              تحكم كامل مع برنامج VMAX <Gamepad2 className="inline w-6 h-6 sm:w-7 sm:h-7 text-[hsl(var(--rgb-cyan))]" />
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-4 mb-8">
+          <div className="grid sm:grid-cols-3 gap-3 sm:gap-4 mb-8">
             {[
               { icon: Settings2, t: "خفيف وسهل الاستخدام" },
               { icon: Palette, t: "حمّل ثيمات من Painter أو صممها بنفسك" },
@@ -289,20 +292,20 @@ const Index = () => {
             ].map(({ icon: Icon, t }) => (
               <div
                 key={t}
-                className="flex items-center gap-3 p-4 rounded-2xl bg-gradient-card border border-border shadow-card"
+                className="flex items-center gap-3 p-3 sm:p-4 rounded-2xl bg-gradient-card border border-border shadow-card"
               >
                 <span className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
                   <Icon className="w-5 h-5 text-[hsl(var(--rgb-cyan))]" />
                 </span>
-                <span className="font-bold">{t}</span>
+                <span className="font-bold text-sm sm:text-base">{t}</span>
               </div>
             ))}
           </div>
 
-          <div className="grid grid-cols-3 gap-3">
-            {[productScreen, productSide, productCase].map((img, i) => (
-              <div key={i} className="aspect-video rounded-xl overflow-hidden border border-border shadow-card opacity-90">
-                <img src={img} alt={`لقطة من برنامج VMAX ${i + 1}`} className="w-full h-full object-cover zoom-img" />
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
+            {[productAnime, productStats, productCpu, productDashboard].map((img, i) => (
+              <div key={i} className="aspect-square rounded-xl overflow-hidden border border-border shadow-card opacity-90">
+                <img src={img} alt={`عرض الشاشة ${i + 1}`} className="w-full h-full object-cover zoom-img" />
               </div>
             ))}
           </div>

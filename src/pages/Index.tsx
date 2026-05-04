@@ -41,7 +41,7 @@ const CTAButton = ({
   <Button
     onClick={scrollToOrder}
     size="lg"
-    className={`bg-gradient-primary text-primary-foreground hover:opacity-95 hover:scale-105 transition-all duration-300 animate-pulse-glow text-lg md:text-xl font-bold px-8 py-7 rounded-2xl ${className}`}
+    className={`bg-gradient-primary text-primary-foreground hover:opacity-95 hover:scale-105 transition-all duration-300 animate-pulse-glow text-base sm:text-lg md:text-xl font-bold px-6 sm:px-8 py-6 sm:py-7 rounded-2xl w-full sm:w-auto ${className}`}
   >
     {children}
     <ArrowLeft className="w-5 h-5 mr-2" />
@@ -53,14 +53,14 @@ const Index = () => {
     <div dir="rtl" className="min-h-screen bg-background text-foreground">
       {/* NAV */}
       <header className="sticky top-0 z-50 backdrop-blur-xl bg-background/70 border-b border-border">
-        <div className="container flex items-center justify-between py-4">
+        <div className="container flex items-center justify-between py-3 sm:py-4 px-4">
           <div className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-xl bg-gradient-primary flex items-center justify-center shadow-blue">
-              <Cpu className="w-5 h-5 text-primary-foreground" />
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-primary flex items-center justify-center shadow-blue">
+              <Cpu className="w-4 h-4 sm:w-5 sm:h-5 text-primary-foreground" />
             </div>
-            <span className="font-black text-lg">GPU Stand Pro</span>
+            <span className="font-black text-base sm:text-lg">GPU Stand Pro</span>
           </div>
-          <Button onClick={scrollToOrder} className="bg-gradient-primary text-primary-foreground rounded-xl font-bold">
+          <Button onClick={scrollToOrder} size="sm" className="bg-gradient-primary text-primary-foreground rounded-xl font-bold text-xs sm:text-sm">
             اطلب الآن
           </Button>
         </div>
@@ -72,18 +72,18 @@ const Index = () => {
         <div className="absolute top-20 -left-20 w-96 h-96 rounded-full bg-primary/20 blur-3xl" />
         <div className="absolute bottom-10 -right-20 w-96 h-96 rounded-full bg-[hsl(var(--rgb-purple))]/20 blur-3xl" />
 
-        <div className="container relative py-14 md:py-20 grid lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6 text-center lg:text-right fade-in">
+        <div className="container relative py-10 sm:py-14 md:py-20 px-4 grid lg:grid-cols-2 gap-8 sm:gap-12 items-center">
+          <div className="space-y-5 sm:space-y-6 text-center lg:text-right fade-in">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-card border border-border shadow-card">
               <Sparkles className="w-4 h-4 text-[hsl(var(--rgb-cyan))]" />
               <span className="text-sm font-bold">جديد · إصدار محدود</span>
             </div>
 
-            <h1 className="text-4xl md:text-6xl lg:text-7xl leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl leading-tight">
               خلي Setup تاعك <span className="text-gradient text-glow">Level آخر</span> 🔥
             </h1>
 
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-xl mx-auto lg:mx-0">
+            <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed max-w-xl mx-auto lg:mx-0">
               حامل GPU ذكي مع شاشة <span className="font-bold text-foreground">IPS 4.58"</span> تعرض معلومات جهازك مباشرة داخل الكيس
             </p>
 
@@ -102,16 +102,16 @@ const Index = () => {
               ))}
             </ul>
 
-            <div className="flex flex-col sm:flex-row items-center gap-4 pt-2 justify-center lg:justify-start">
-              <div className="flex items-baseline gap-2 px-6 py-4 rounded-2xl bg-card shadow-blue border border-primary/30">
+            <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 pt-2 justify-center lg:justify-start">
+              <div className="flex items-baseline gap-2 px-5 sm:px-6 py-3 sm:py-4 rounded-2xl bg-card shadow-blue border border-primary/30">
                 <span className="text-sm text-muted-foreground">السعر:</span>
-                <span className="text-4xl font-black text-gradient text-glow">9800</span>
+                <span className="text-3xl sm:text-4xl font-black text-gradient text-glow">9800</span>
                 <span className="font-bold">دج</span>
               </div>
               <CTAButton>اطلب الآن</CTAButton>
             </div>
 
-            <div className="flex flex-wrap items-center gap-4 justify-center lg:justify-start text-sm text-muted-foreground pt-2">
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4 justify-center lg:justify-start text-xs sm:text-sm text-muted-foreground pt-2">
               <span className="flex items-center gap-1"><Truck className="w-4 h-4 text-[hsl(var(--rgb-cyan))]" /> توصيل لكامل الولايات</span>
               <span className="flex items-center gap-1"><Shield className="w-4 h-4 text-[hsl(var(--rgb-cyan))]" /> دفع عند الاستلام</span>
             </div>

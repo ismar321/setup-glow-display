@@ -18,9 +18,14 @@ import {
   CreditCard,
   ShieldCheck,
 } from "lucide-react";
-import productCase from "@/assets/product-case.png";
-import productScreen from "@/assets/product-screen.png";
-import productSide from "@/assets/product-side.png";
+import productAnime from "@/assets/product-anime.jpg";
+import productStats from "@/assets/product-stats.jpg";
+import productCpu from "@/assets/product-cpu.jpg";
+import productDashboard from "@/assets/product-dashboard.jpg";
+
+const productCase = productAnime;
+const productScreen = productStats;
+const productSide = productCpu;
 
 const scrollToOrder = () => {
   document.getElementById("order")?.scrollIntoView({ behavior: "smooth" });

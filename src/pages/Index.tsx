@@ -207,14 +207,14 @@ const Index = () => {
       </section>
 
       {/* FEATURES */}
-      <section className="py-20">
-        <div className="container">
-          <div className="text-center mb-14 space-y-3">
-            <h2 className="text-3xl md:text-5xl">المميزات اللي راح تعجبك</h2>
-            <p className="text-muted-foreground text-lg">كل تفصيل مدروس باش يعطيك أحسن تجربة</p>
+      <section className="py-14 sm:py-20">
+        <div className="container px-4">
+          <div className="text-center mb-10 sm:mb-14 space-y-3">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl">المميزات اللي راح تعجبك</h2>
+            <p className="text-muted-foreground text-base sm:text-lg">كل تفصيل مدروس باش يعطيك أحسن تجربة</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
             {[
               {
                 icon: Shield,
@@ -234,13 +234,13 @@ const Index = () => {
             ].map(({ icon: Icon, title, desc }) => (
               <Card
                 key={title}
-                className="p-8 bg-gradient-card border-border shadow-card hover:shadow-glow transition-all duration-500 hover:-translate-y-2 group"
+                className="p-6 sm:p-8 bg-gradient-card border-border shadow-card hover:shadow-glow transition-all duration-500 hover:-translate-y-2 group sm:col-span-1 [&:nth-child(3)]:sm:col-span-2 [&:nth-child(3)]:md:col-span-1"
               >
-                <div className="w-16 h-16 rounded-2xl bg-gradient-primary flex items-center justify-center mb-5 shadow-blue group-hover:scale-110 transition-transform">
-                  <Icon className="w-8 h-8 text-primary-foreground" />
+                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-primary flex items-center justify-center mb-4 sm:mb-5 shadow-blue group-hover:scale-110 transition-transform">
+                  <Icon className="w-7 h-7 sm:w-8 sm:h-8 text-primary-foreground" />
                 </div>
-                <h3 className="text-2xl mb-2">{title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{desc}</p>
+                <h3 className="text-xl sm:text-2xl mb-2">{title}</h3>
+                <p className="text-muted-foreground leading-relaxed text-sm sm:text-base">{desc}</p>
               </Card>
             ))}
           </div>

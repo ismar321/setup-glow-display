@@ -130,9 +130,9 @@ const Index = () => {
         </div>
 
         {/* VIDEO PLAYER */}
-        <div className="container relative pb-16 md:pb-24">
-          <div className="max-w-3xl mx-auto text-center space-y-5">
-            <h3 className="text-2xl md:text-3xl">
+        <div className="container relative pb-12 sm:pb-16 md:pb-24 px-4">
+          <div className="max-w-3xl mx-auto text-center space-y-4 sm:space-y-5">
+            <h3 className="text-xl sm:text-2xl md:text-3xl">
               شاهد المنتج في العمل <span>🎬</span>
             </h3>
             <div className="rounded-2xl overflow-hidden video-glow bg-card border border-border">
@@ -143,7 +143,7 @@ const Index = () => {
                 muted
                 loop
                 playsInline
-                poster={productScreen}
+                poster={productDashboard}
                 className="w-full h-auto block aspect-video bg-black"
               >
                 المتصفح لا يدعم تشغيل الفيديو.
@@ -154,28 +154,28 @@ const Index = () => {
       </section>
 
       {/* PROBLEM */}
-      <section className="py-20 bg-card/40">
-        <div className="container max-w-5xl">
-          <div className="text-center space-y-4 mb-12">
+      <section className="py-14 sm:py-20 bg-card/40">
+        <div className="container max-w-5xl px-4">
+          <div className="text-center space-y-4 mb-8 sm:mb-12">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-destructive/10 text-destructive font-bold text-sm border border-destructive/20">
               <AlertTriangle className="w-4 h-4" /> المشكلة
             </div>
-            <h2 className="text-3xl md:text-5xl">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl">
               كرت الشاشة <span className="text-destructive">ثقيل؟</span>
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-3 gap-4 sm:gap-6">
             {[
               { icon: AlertTriangle, t: "تخاف يتكسر كرت الشاشة بسبب وزنه؟" },
               { icon: AlertTriangle, t: "تخاف يكسر لوحة الأم؟" },
               { icon: AlertTriangle, t: "Setup تاعك ناقصو لمسة احترافية؟" },
             ].map(({ icon: Icon, t }) => (
-              <Card key={t} className="p-6 bg-gradient-card border-destructive/20 shadow-card text-center">
-                <div className="w-14 h-14 mx-auto rounded-2xl bg-destructive/10 flex items-center justify-center mb-4">
-                  <Icon className="w-7 h-7 text-destructive" />
+              <Card key={t} className="p-5 sm:p-6 bg-gradient-card border-destructive/20 shadow-card text-center">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 mx-auto rounded-2xl bg-destructive/10 flex items-center justify-center mb-3 sm:mb-4">
+                  <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-destructive" />
                 </div>
-                <p className="text-lg font-bold leading-relaxed">{t}</p>
+                <p className="text-base sm:text-lg font-bold leading-relaxed">{t}</p>
               </Card>
             ))}
           </div>
@@ -183,22 +183,22 @@ const Index = () => {
       </section>
 
       {/* SOLUTION */}
-      <section className="py-20 relative overflow-hidden">
+      <section className="py-14 sm:py-20 relative overflow-hidden">
         <div className="absolute inset-0 grid-bg opacity-50" />
-        <div className="container relative max-w-4xl text-center space-y-8">
+        <div className="container relative max-w-4xl text-center space-y-6 sm:space-y-8 px-4">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-[hsl(var(--rgb-cyan))] font-bold text-sm border border-primary/20">
             <Sparkles className="w-4 h-4" /> الحل
           </div>
-          <h2 className="text-3xl md:text-5xl leading-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl leading-tight">
             هذا الحامل <span className="text-muted-foreground line-through">مش غير دعم</span> <br />
             هذا <span className="text-gradient text-glow">Upgrade كامل</span> للـ Setup تاعك
           </h2>
-          <p className="text-lg text-muted-foreground leading-loose max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg text-muted-foreground leading-loose max-w-3xl mx-auto">
             يحمي كرت الشاشة واللوحة الأم من الاعوجاج والكسر بسبب الوزن، ومعاه شاشة 4.5 إنش سريعة الاستجابة تعطيك عرض مباشر وأنيق.
             تقدر تعدل على الخلفيات وتصنعها بسهولة. تصميم قابل للتعديل، سهل التركيب، يزيد لمسة احترافية وزينة لجهازك.
           </p>
           <div className="rgb-border max-w-2xl mx-auto">
-            <img src={productScreen} alt="شاشة IPS تعرض شخصية أنمي وإحصائيات CPU و GPU" className="rounded-2xl w-full" />
+            <img src={productStats} alt="شاشة IPS تعرض إحصائيات CPU و GPU" className="rounded-2xl w-full" />
           </div>
           <div className="pt-4">
             <CTAButton>اطلب الآن</CTAButton>

@@ -8,24 +8,18 @@ import {
   Truck,
   Star,
   Cpu,
-  Wrench,
-  Award,
-  AlertTriangle,
-  Gamepad2,
-  Palette,
-  Settings2,
   ArrowLeft,
   CreditCard,
   ShieldCheck,
+  AlertTriangle,
+  Palette,
+  Settings2,
+  Gamepad2,
 } from "lucide-react";
 import productAnime from "@/assets/product-anime.jpg";
 import productStats from "@/assets/product-stats.jpg";
 import productCpu from "@/assets/product-cpu.jpg";
 import productDashboard from "@/assets/product-dashboard.jpg";
-
-const productCase = productAnime;
-const productScreen = productStats;
-const productSide = productCpu;
 
 const scrollToOrder = () => {
   document.getElementById("order")?.scrollIntoView({ behavior: "smooth" });
@@ -83,8 +77,8 @@ const Index = () => {
               خلي Setup تاعك <span className="text-gradient text-glow">Level آخر</span> 🔥
             </h1>
 
-            <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed max-w-xl mx-auto lg:mx-0">
-              حامل GPU ذكي مع شاشة <span className="font-bold text-foreground">IPS 4.58"</span> تعرض معلومات جهازك مباشرة داخل الكيس
+            <p className="text-xl sm:text-2xl md:text-3xl text-foreground/90 font-bold leading-relaxed max-w-xl mx-auto lg:mx-0">
+              حامل GPU ذكي مع شاشة <span className="text-gradient">IPS 4.58"</span> تعرض معلومات جهازك مباشرة داخل الكيس
             </p>
 
             <ul className="space-y-3 max-w-xl mx-auto lg:mx-0">
@@ -121,100 +115,132 @@ const Index = () => {
             <div className="absolute inset-0 bg-gradient-rgb opacity-20 blur-3xl rounded-full" />
             <div className="relative rgb-border animate-float">
               <img
-                src={productCase}
+                src={productAnime}
                 alt="حامل GPU مع شاشة IPS داخل كيس Gaming"
                 className="rounded-2xl w-full object-cover"
               />
             </div>
           </div>
         </div>
-
-        {/* VIDEO PLAYER */}
-        <div className="container relative pb-12 sm:pb-16 md:pb-24 px-4">
-          <div className="max-w-3xl mx-auto text-center space-y-4 sm:space-y-5">
-            <h3 className="text-xl sm:text-2xl md:text-3xl">
-              شاهد المنتج في العمل <span>🎬</span>
-            </h3>
-            <div className="rounded-2xl overflow-hidden video-glow bg-card border border-border">
-              <video
-                src=""
-                controls
-                autoPlay
-                muted
-                loop
-                playsInline
-                poster={productDashboard}
-                className="w-full h-auto block aspect-video bg-black"
-              >
-                المتصفح لا يدعم تشغيل الفيديو.
-              </video>
-            </div>
-          </div>
-        </div>
       </section>
 
-      {/* PROBLEM */}
-      <section className="py-14 sm:py-20 bg-card/40">
-        <div className="container max-w-5xl px-4">
-          <div className="text-center space-y-4 mb-8 sm:mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-destructive/10 text-destructive font-bold text-sm border border-destructive/20">
-              <AlertTriangle className="w-4 h-4" /> المشكلة
-            </div>
-            <h2 className="text-2xl sm:text-3xl md:text-5xl">
-              كرت الشاشة <span className="text-destructive">ثقيل؟</span>
-            </h2>
-          </div>
-
-          <div className="grid sm:grid-cols-3 gap-4 sm:gap-6">
-            {[
-              { icon: AlertTriangle, t: "تخاف يتكسر كرت الشاشة بسبب وزنه؟" },
-              { icon: AlertTriangle, t: "تخاف يكسر لوحة الأم؟" },
-              { icon: AlertTriangle, t: "Setup تاعك ناقصو لمسة احترافية؟" },
-            ].map(({ icon: Icon, t }) => (
-              <Card key={t} className="p-5 sm:p-6 bg-gradient-card border-destructive/20 shadow-card text-center">
-                <div className="w-12 h-12 sm:w-14 sm:h-14 mx-auto rounded-2xl bg-destructive/10 flex items-center justify-center mb-3 sm:mb-4">
-                  <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-destructive" />
-                </div>
-                <p className="text-base sm:text-lg font-bold leading-relaxed">{t}</p>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* SOLUTION */}
+      {/* PROBLEM + SOLUTION (single section) */}
       <section className="py-14 sm:py-20 relative overflow-hidden">
-        <div className="absolute inset-0 grid-bg opacity-50" />
-        <div className="container relative max-w-4xl text-center space-y-6 sm:space-y-8 px-4">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-[hsl(var(--rgb-cyan))] font-bold text-sm border border-primary/20">
-            <Sparkles className="w-4 h-4" /> الحل
+        <div className="absolute inset-0 grid-bg opacity-40" />
+        <div className="container relative max-w-6xl px-4">
+          <div className="grid lg:grid-cols-2 gap-6 sm:gap-10 items-stretch">
+            {/* Problem */}
+            <div className="space-y-5 sm:space-y-6">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-destructive/10 text-destructive font-bold text-sm border border-destructive/20">
+                <AlertTriangle className="w-4 h-4" /> المشكلة
+              </div>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl leading-tight">
+                كرت الشاشة <span className="text-destructive">ثقيل؟</span>
+              </h2>
+              <div className="space-y-3">
+                {[
+                  "تخاف يتكسر كرت الشاشة بسبب وزنه؟",
+                  "تخاف يكسر لوحة الأم؟",
+                  "Setup تاعك ناقصو لمسة احترافية؟",
+                ].map((t) => (
+                  <Card key={t} className="p-4 sm:p-5 bg-gradient-card border-destructive/20 shadow-card flex items-center gap-3">
+                    <span className="w-10 h-10 rounded-xl bg-destructive/10 flex items-center justify-center shrink-0">
+                      <AlertTriangle className="w-5 h-5 text-destructive" />
+                    </span>
+                    <p className="text-sm sm:text-base font-bold leading-relaxed">{t}</p>
+                  </Card>
+                ))}
+              </div>
+            </div>
+
+            {/* Solution */}
+            <div className="space-y-5 sm:space-y-6">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-[hsl(var(--rgb-cyan))] font-bold text-sm border border-primary/20">
+                <Sparkles className="w-4 h-4" /> الحل
+              </div>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl leading-tight">
+                <span className="text-gradient text-glow">Upgrade كامل</span> للـ Setup تاعك
+              </h2>
+              <p className="text-base sm:text-lg text-muted-foreground leading-loose">
+                يحمي كرت الشاشة واللوحة الأم من الاعوجاج والكسر بسبب الوزن، ومعاه شاشة 4.58" سريعة الاستجابة تعطيك عرض مباشر وأنيق.
+                تصميم قابل للتعديل، سهل التركيب، ويزيد لمسة احترافية لجهازك.
+              </p>
+              <div className="rgb-border">
+                <img src={productStats} alt="شاشة IPS تعرض إحصائيات CPU و GPU" className="rounded-2xl w-full" />
+              </div>
+            </div>
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-5xl leading-tight">
-            هذا الحامل <span className="text-muted-foreground line-through">مش غير دعم</span> <br />
-            هذا <span className="text-gradient text-glow">Upgrade كامل</span> للـ Setup تاعك
-          </h2>
-          <p className="text-base sm:text-lg text-muted-foreground leading-loose max-w-3xl mx-auto">
-            يحمي كرت الشاشة واللوحة الأم من الاعوجاج والكسر بسبب الوزن، ومعاه شاشة 4.5 إنش سريعة الاستجابة تعطيك عرض مباشر وأنيق.
-            تقدر تعدل على الخلفيات وتصنعها بسهولة. تصميم قابل للتعديل، سهل التركيب، يزيد لمسة احترافية وزينة لجهازك.
-          </p>
-          <div className="rgb-border max-w-2xl mx-auto">
-            <img src={productStats} alt="شاشة IPS تعرض إحصائيات CPU و GPU" className="rounded-2xl w-full" />
-          </div>
-          <div className="pt-4">
+
+          <div className="text-center pt-10">
             <CTAButton>اطلب الآن</CTAButton>
           </div>
         </div>
       </section>
 
-      {/* FEATURES */}
+      {/* VIDEO + VMAX SOFTWARE INTRO */}
+      <section className="py-12 sm:py-20 bg-card/40">
+        <div className="container max-w-4xl px-4">
+          <div className="text-center mb-6 sm:mb-8 space-y-3">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl">
+              شوف الحل بعينيك مع برنامج <span className="text-gradient text-glow">VMAX</span>
+            </h2>
+            <p className="text-muted-foreground text-base sm:text-lg">
+              فيديو شرح بسيط للمنتج + برنامج <span className="font-bold text-foreground">VMAX</span> اللي يساعدك تتحكم في الثيمات بكل سهولة
+              <span className="block text-sm text-[hsl(var(--rgb-cyan))] font-bold mt-1">
+                ⚡ خفيف وغير متطلب على الجهاز
+              </span>
+            </p>
+          </div>
+
+          <div className="rounded-2xl overflow-hidden video-glow bg-card border border-border mb-6">
+            <video
+              src=""
+              controls
+              autoPlay
+              muted
+              loop
+              playsInline
+              poster={productDashboard}
+              className="w-full h-auto block aspect-video bg-black"
+            >
+              المتصفح لا يدعم تشغيل الفيديو.
+            </video>
+          </div>
+
+          <div className="grid sm:grid-cols-3 gap-3 sm:gap-4">
+            {[
+              { icon: Settings2, t: "خفيف وسهل الاستخدام" },
+              { icon: Palette, t: "ثيمات جاهزة أو صممها بنفسك" },
+              { icon: Gamepad2, t: "تحكم كامل في العرض" },
+            ].map(({ icon: Icon, t }) => (
+              <div
+                key={t}
+                className="flex items-center gap-3 p-3 sm:p-4 rounded-2xl bg-gradient-card border border-border shadow-card"
+              >
+                <span className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                  <Icon className="w-5 h-5 text-[hsl(var(--rgb-cyan))]" />
+                </span>
+                <span className="font-bold text-sm sm:text-base">{t}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center pt-8">
+            <CTAButton>اطلب الآن</CTAButton>
+          </div>
+        </div>
+      </section>
+
+      {/* FEATURES + GALLERY (merged) */}
       <section className="py-14 sm:py-20">
         <div className="container px-4">
           <div className="text-center mb-10 sm:mb-14 space-y-3">
-            <h2 className="text-2xl sm:text-3xl md:text-5xl">المميزات اللي راح تعجبك</h2>
+            <h2 className="text-2xl sm:text-3xl md:text-5xl">المميزات + شوف الجمالية بعينيك</h2>
             <p className="text-muted-foreground text-base sm:text-lg">كل تفصيل مدروس باش يعطيك أحسن تجربة</p>
           </div>
 
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+          {/* Features cards */}
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mb-10 sm:mb-14">
             {[
               {
                 icon: Shield,
@@ -234,7 +260,7 @@ const Index = () => {
             ].map(({ icon: Icon, title, desc }) => (
               <Card
                 key={title}
-                className="p-6 sm:p-8 bg-gradient-card border-border shadow-card hover:shadow-glow transition-all duration-500 hover:-translate-y-2 group sm:col-span-1 [&:nth-child(3)]:sm:col-span-2 [&:nth-child(3)]:md:col-span-1"
+                className="p-6 sm:p-8 bg-gradient-card border-border shadow-card hover:shadow-glow transition-all duration-500 hover:-translate-y-2 group"
               >
                 <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-primary flex items-center justify-center mb-4 sm:mb-5 shadow-blue group-hover:scale-110 transition-transform">
                   <Icon className="w-7 h-7 sm:w-8 sm:h-8 text-primary-foreground" />
@@ -244,16 +270,8 @@ const Index = () => {
               </Card>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* LIFESTYLE GALLERY */}
-      <section className="py-14 sm:py-20 bg-card/40">
-        <div className="container px-4">
-          <div className="text-center mb-8 sm:mb-12 space-y-3">
-            <h2 className="text-2xl sm:text-3xl md:text-5xl">شوف الجمالية بعينيك</h2>
-            <p className="text-muted-foreground text-base sm:text-lg">شاشة Anime + إحصائيات Live داخل الكيس</p>
-          </div>
+          {/* Gallery */}
           <div className="grid grid-cols-2 md:grid-cols-2 gap-3 sm:gap-6">
             <div className="overflow-hidden rounded-2xl sm:rounded-3xl shadow-card border border-border aspect-square">
               <img src={productAnime} alt="شاشة الحامل تعرض شخصية أنمي" className="w-full h-full object-cover zoom-img" />
@@ -271,110 +289,6 @@ const Index = () => {
 
           <div className="text-center mt-10 sm:mt-12">
             <CTAButton>اطلب الآن وحوّل Setup تاعك</CTAButton>
-          </div>
-        </div>
-      </section>
-
-      {/* VMAX SOFTWARE */}
-      <section className="py-12 sm:py-16">
-        <div className="container max-w-5xl px-4">
-          <div className="text-center mb-8 space-y-3">
-            <h2 className="text-xl sm:text-2xl md:text-4xl">
-              تحكم كامل مع برنامج VMAX <Gamepad2 className="inline w-6 h-6 sm:w-7 sm:h-7 text-[hsl(var(--rgb-cyan))]" />
-            </h2>
-          </div>
-
-          <div className="grid sm:grid-cols-3 gap-3 sm:gap-4 mb-8">
-            {[
-              { icon: Settings2, t: "خفيف وسهل الاستخدام" },
-              { icon: Palette, t: "حمّل ثيمات من Painter أو صممها بنفسك" },
-              { icon: MonitorSmartphone, t: "تحكم كامل في ما تعرضه الشاشة" },
-            ].map(({ icon: Icon, t }) => (
-              <div
-                key={t}
-                className="flex items-center gap-3 p-3 sm:p-4 rounded-2xl bg-gradient-card border border-border shadow-card"
-              >
-                <span className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-                  <Icon className="w-5 h-5 text-[hsl(var(--rgb-cyan))]" />
-                </span>
-                <span className="font-bold text-sm sm:text-base">{t}</span>
-              </div>
-            ))}
-          </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
-            {[productAnime, productStats, productCpu, productDashboard].map((img, i) => (
-              <div key={i} className="aspect-square rounded-xl overflow-hidden border border-border shadow-card opacity-90">
-                <img src={img} alt={`عرض الشاشة ${i + 1}`} className="w-full h-full object-cover zoom-img" />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* WHY CHOOSE */}
-      <section className="py-14 sm:py-20 bg-card/40">
-        <div className="container max-w-5xl px-4">
-          <div className="text-center mb-8 sm:mb-12">
-            <h2 className="text-2xl sm:text-3xl md:text-5xl">علاش تختاره؟</h2>
-          </div>
-          <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
-            {[
-              { icon: Wrench, t: "تركيب سهل بدون أدوات" },
-              { icon: Cpu, t: "متوافق مع أغلب الكيسات" },
-              { icon: Award, t: "جودة تصنيع عالية" },
-              { icon: Sparkles, t: "تصميم أنيق ومميز" },
-            ].map(({ icon: Icon, t }) => (
-              <div
-                key={t}
-                className="flex items-center gap-3 sm:gap-4 p-4 sm:p-6 rounded-2xl bg-gradient-card border border-border shadow-card hover:shadow-glow transition-all"
-              >
-                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-gradient-primary flex items-center justify-center shrink-0 shadow-blue">
-                  <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-primary-foreground" />
-                </div>
-                <span className="text-base sm:text-lg font-bold">{t}</span>
-                <Check className="w-5 h-5 text-[hsl(var(--rgb-cyan))] mr-auto" />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* REVIEWS */}
-      <section className="py-14 sm:py-20">
-        <div className="container px-4">
-          <div className="text-center mb-8 sm:mb-12 space-y-3">
-            <h2 className="text-2xl sm:text-3xl md:text-5xl">آراء العملاء</h2>
-            <div className="flex items-center justify-center gap-1">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-5 h-5 sm:w-6 sm:h-6 fill-[hsl(var(--rgb-cyan))] text-[hsl(var(--rgb-cyan))]" />
-              ))}
-            </div>
-          </div>
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
-            {[
-              { n: "أحمد", c: "الجزائر العاصمة", r: "زاد عطالي شكل PC كامل 🔥 من أحسن ما شريت" },
-              { n: "يوسف", c: "وهران", r: "الشاشة حاجة خرافية، تعرض كل شيء بشكل احترافي" },
-              { n: "كريم", c: "قسنطينة", r: "منتج يستاهل السعر، التركيب سهل والجودة ممتازة" },
-            ].map((rev) => (
-              <Card key={rev.n} className="p-6 sm:p-8 bg-gradient-card shadow-card border-border">
-                <div className="flex gap-1 mb-3">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-[hsl(var(--rgb-cyan))] text-[hsl(var(--rgb-cyan))]" />
-                  ))}
-                </div>
-                <p className="text-foreground leading-relaxed mb-4 text-base sm:text-lg">"{rev.r}"</p>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-gradient-primary flex items-center justify-center text-primary-foreground font-bold shadow-blue">
-                    {rev.n[0]}
-                  </div>
-                  <div>
-                    <div className="font-bold leading-tight">{rev.n}</div>
-                    <div className="text-xs text-muted-foreground">{rev.c}</div>
-                  </div>
-                </div>
-              </Card>
-            ))}
           </div>
         </div>
       </section>

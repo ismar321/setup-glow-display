@@ -211,69 +211,26 @@ const Index = () => {
               </h2>
               <p className="text-base sm:text-lg text-muted-foreground leading-loose">
                 يحمي كرت الشاشة واللوحة الأم من الاعوجاج والكسر بسبب الوزن، ومعاه شاشة 4.58" سريعة الاستجابة تعطيك عرض مباشر وأنيق.
-                تصميم قابل للتعديل، سهل التركيب، ويزيد لمسة احترافية لجهازك.
+                مع برنامج <span className="font-bold text-foreground">VMAX</span> تتحكم في الثيمات بكل سهولة — خفيف وغير متطلب على الجهاز.
               </p>
-              <div className="rgb-border">
-                <img src={productStats} alt="شاشة IPS تعرض إحصائيات CPU و GPU" className="rounded-2xl w-full" />
+              <div className="rounded-2xl overflow-hidden video-glow bg-card border border-border">
+                <video
+                  src=""
+                  controls
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  poster={productDashboard}
+                  className="w-full h-auto block aspect-video bg-black"
+                >
+                  المتصفح لا يدعم تشغيل الفيديو.
+                </video>
               </div>
             </div>
           </div>
 
           <div className="text-center pt-10">
-            <CTAButton>اطلب الآن</CTAButton>
-          </div>
-        </div>
-      </section>
-
-      {/* VIDEO + VMAX SOFTWARE INTRO */}
-      <section className="py-12 sm:py-20 bg-card/40">
-        <div className="container max-w-4xl px-4">
-          <div className="text-center mb-6 sm:mb-8 space-y-3">
-            <h2 className="text-2xl sm:text-3xl md:text-5xl">
-              شوف الحل بعينيك مع برنامج <span className="text-gradient text-glow">VMAX</span>
-            </h2>
-            <p className="text-muted-foreground text-base sm:text-lg">
-              فيديو شرح بسيط للمنتج + برنامج <span className="font-bold text-foreground">VMAX</span> اللي يساعدك تتحكم في الثيمات بكل سهولة
-              <span className="block text-sm text-[hsl(var(--rgb-cyan))] font-bold mt-1">
-                ⚡ خفيف وغير متطلب على الجهاز
-              </span>
-            </p>
-          </div>
-
-          <div className="rounded-2xl overflow-hidden video-glow bg-card border border-border mb-6">
-            <video
-              src=""
-              controls
-              autoPlay
-              muted
-              loop
-              playsInline
-              poster={productDashboard}
-              className="w-full h-auto block aspect-video bg-black"
-            >
-              المتصفح لا يدعم تشغيل الفيديو.
-            </video>
-          </div>
-
-          <div className="grid sm:grid-cols-3 gap-3 sm:gap-4">
-            {[
-              { icon: Settings2, t: "خفيف وسهل الاستخدام" },
-              { icon: Palette, t: "ثيمات جاهزة أو صممها بنفسك" },
-              { icon: Gamepad2, t: "تحكم كامل في العرض" },
-            ].map(({ icon: Icon, t }) => (
-              <div
-                key={t}
-                className="flex items-center gap-3 p-3 sm:p-4 rounded-2xl bg-gradient-card border border-border shadow-card"
-              >
-                <span className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-                  <Icon className="w-5 h-5 text-[hsl(var(--rgb-cyan))]" />
-                </span>
-                <span className="font-bold text-sm sm:text-base">{t}</span>
-              </div>
-            ))}
-          </div>
-
-          <div className="text-center pt-8">
             <CTAButton>اطلب الآن</CTAButton>
           </div>
         </div>

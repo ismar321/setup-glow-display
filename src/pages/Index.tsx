@@ -236,76 +236,68 @@ const Index = () => {
         </div>
       </section>
 
-      {/* FEATURES + GALLERY (merged) */}
-      <section className="py-14 sm:py-20">
-        <div className="container px-4">
-          <div className="text-center mb-10 sm:mb-14 space-y-3">
-            <h2 className="text-2xl sm:text-3xl md:text-5xl">المميزات + شوف الجمالية بعينيك</h2>
-            <p className="text-muted-foreground text-base sm:text-lg">كل تفصيل مدروس باش يعطيك أحسن تجربة</p>
+      {/* DIMENSIONS & INSTALLATION */}
+      <section className="py-14 sm:py-20 bg-card/40">
+        <div className="container max-w-6xl px-4">
+          <div className="text-center mb-10 sm:mb-12 space-y-3">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl">
+              الأبعاد و <span className="text-gradient text-glow">طريقة التركيب</span>
+            </h2>
+            <p className="text-muted-foreground text-base sm:text-lg">
+              تصميم مدروس باش يدخل في أغلب الكيسات بسهولة
+            </p>
           </div>
 
-          {/* Features cards */}
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mb-10 sm:mb-14">
-            {[
-              {
-                icon: Shield,
-                title: "حماية قوية",
-                desc: "يحافظ على كرت الشاشة مستقيم وآمن، ويمنع كسر اللوحة الأم",
-              },
-              {
-                icon: MonitorSmartphone,
-                title: 'شاشة ذكية "4.58',
-                desc: "تعرض CPU / GPU / الحرارة / الوقت / ثيمات مخصصة / GIF / فيديوهات قصيرة",
-              },
-              {
-                icon: Star,
-                title: "جمال خرافي",
-                desc: "يعطي شكل Premium داخل الكيس مع إضاءة RGB",
-              },
-            ].map(({ icon: Icon, title, desc }) => (
-              <Card
-                key={title}
-                className="p-6 sm:p-8 bg-gradient-card border-border shadow-card hover:shadow-glow transition-all duration-500 hover:-translate-y-2 group"
-              >
-                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-primary flex items-center justify-center mb-4 sm:mb-5 shadow-blue group-hover:scale-110 transition-transform">
-                  <Icon className="w-7 h-7 sm:w-8 sm:h-8 text-primary-foreground" />
-                </div>
-                <h3 className="text-xl sm:text-2xl mb-2">{title}</h3>
-                <p className="text-muted-foreground leading-relaxed text-sm sm:text-base">{desc}</p>
-              </Card>
-            ))}
-          </div>
+          <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 items-center">
+            <div className="rgb-border">
+              <img
+                src={productDimensions}
+                alt="أبعاد الحامل وطريقة التركيب — ارتفاع 13.2 سم"
+                loading="lazy"
+                decoding="async"
+                sizes="(max-width: 1024px) 90vw, 32rem"
+                className="rounded-2xl w-full bg-muted"
+              />
+            </div>
 
-          {/* Gallery Carousel */}
-          <Carousel
-            opts={{ align: "center", loop: true, direction: "rtl" }}
-            className="w-full max-w-4xl mx-auto px-2 sm:px-8"
-          >
-            <CarouselContent className="-ml-2 sm:-ml-4">
-              {galleryImages.map((img, i) => (
-                <CarouselItem key={img.src} className="pl-2 sm:pl-4 basis-4/5 sm:basis-1/2 md:basis-1/2">
-                  <button
-                    type="button"
-                    onClick={() => setZoomIndex(i)}
-                    className="group relative block w-full overflow-hidden rounded-2xl sm:rounded-3xl shadow-card border border-border aspect-square focus:outline-none focus:ring-2 focus:ring-ring"
-                    aria-label="تكبير الصورة"
-                  >
-                    <img
-                      src={img.src}
-                      alt={img.alt}
-                      className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110 group-active:scale-105"
-                    />
-                    <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    <span className="absolute bottom-3 right-3 flex items-center gap-1 px-3 py-1.5 rounded-full bg-background/80 backdrop-blur-sm border border-border text-xs font-bold opacity-90 group-hover:opacity-100">
-                      <ZoomIn className="w-3.5 h-3.5 text-[hsl(var(--rgb-cyan))]" /> تكبير
-                    </span>
-                  </button>
-                </CarouselItem>
+            <div className="space-y-4">
+              {[
+                {
+                  icon: Ruler,
+                  title: "ارتفاع 13 سم فقط",
+                  desc: "حجم مدروس يدخل في أغلب الكيسات بدون أي مشكل",
+                },
+                {
+                  icon: Wrench,
+                  title: "تركيب فوق مراوح الكيس",
+                  desc: "تقدر تركبو فوق مراوح الكيس عادي وتزيرو، فيه قاعدة عريضة تثبتو مزيان",
+                },
+                {
+                  icon: Usb,
+                  title: "USB 2.0 9-pin Header",
+                  desc: "يتركب مباشرة في لوحة الأم عبر منفذ USB 2.0 9-pin header",
+                },
+                {
+                  icon: Cpu,
+                  title: "كابل امتداد USB",
+                  desc: "يجي معاه كابل امتداد USB Port في حالة ما عندكش منفذ متاح",
+                },
+              ].map(({ icon: Icon, title, desc }) => (
+                <Card
+                  key={title}
+                  className="p-4 sm:p-5 bg-gradient-card border-border shadow-card flex items-start gap-4 hover:shadow-glow transition-all duration-500"
+                >
+                  <span className="w-12 h-12 rounded-2xl bg-gradient-primary flex items-center justify-center shrink-0 shadow-blue">
+                    <Icon className="w-6 h-6 text-primary-foreground" />
+                  </span>
+                  <div>
+                    <h3 className="text-lg sm:text-xl font-bold mb-1">{title}</h3>
+                    <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">{desc}</p>
+                  </div>
+                </Card>
               ))}
-            </CarouselContent>
-            <CarouselPrevious className="hidden sm:flex -right-4 left-auto" />
-            <CarouselNext className="hidden sm:flex -left-4 right-auto" />
-          </Carousel>
+            </div>
+          </div>
 
           {/* Zoom Dialog */}
           <Dialog open={zoomIndex !== null} onOpenChange={(o) => !o && setZoomIndex(null)}>
@@ -321,7 +313,6 @@ const Index = () => {
               )}
             </DialogContent>
           </Dialog>
-
 
           <div className="text-center mt-10 sm:mt-12">
             <CTAButton>اطلب الآن وحوّل Setup تاعك</CTAButton>

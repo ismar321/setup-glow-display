@@ -54,6 +54,13 @@ const CTAButton = ({
 );
 
 const Index = () => {
+  const galleryImages = [
+    { src: productAnime, alt: "شاشة الحامل تعرض شخصية أنمي" },
+    { src: productStats, alt: "شاشة تعرض إحصائيات الجهاز ووقت" },
+    { src: productCpu, alt: "شاشة تعرض استهلاك CPU" },
+    { src: productDashboard, alt: "شاشة Dashboard أنيقة" },
+  ];
+  const [zoomIndex, setZoomIndex] = useState<number | null>(null);
   return (
     <div dir="rtl" className="min-h-screen bg-background text-foreground">
       {/* NAV */}

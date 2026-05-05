@@ -33,6 +33,10 @@ import productCase from "@/assets/product-case.png";
 import productScreen from "@/assets/product-screen.png";
 import productSide from "@/assets/product-side.png";
 import productDimensions from "@/assets/product-dimensions.png";
+import themesDashboards from "@/assets/themes-dashboards.png";
+import themesAnime from "@/assets/themes-anime.png";
+import themesPiky from "@/assets/themes-piky.png";
+import themesEye from "@/assets/themes-eye.png";
 
 const scrollToOrder = () => {
   document.getElementById("order")?.scrollIntoView({ behavior: "smooth" });
@@ -210,8 +214,7 @@ const Index = () => {
                 <span className="text-gradient text-glow">Upgrade كامل</span> للـ Setup تاعك
               </h2>
               <p className="text-base sm:text-lg text-muted-foreground leading-loose">
-                يحمي كرت الشاشة واللوحة الأم من الاعوجاج والكسر بسبب الوزن، ومعاه شاشة 4.58" سريعة الاستجابة تعطيك عرض مباشر وأنيق.
-                مع برنامج <span className="font-bold text-foreground">VMAX</span> تتحكم في الثيمات بكل سهولة — خفيف وغير متطلب على الجهاز.
+                يحمي كرت الشاشة واللوحة الأم من الاعوجاج والكسر بسبب الوزن، ومعاه شاشة 4.58" سريعة الاستجابة تعطيك عرض مباشر وأنيق للحرارة، الأداء، والثيمات.
               </p>
               <div className="rounded-2xl overflow-hidden video-glow bg-card border border-border">
                 <video
@@ -231,6 +234,50 @@ const Index = () => {
           </div>
 
           <div className="text-center pt-10">
+            <CTAButton>اطلب الآن</CTAButton>
+          </div>
+        </div>
+      </section>
+
+      {/* VMAX SOFTWARE */}
+      <section className="py-14 sm:py-20 relative overflow-hidden bg-card/40">
+        <div className="absolute inset-0 grid-bg opacity-30" />
+        <div className="absolute top-1/2 right-1/4 w-96 h-96 rounded-full bg-[hsl(var(--rgb-purple))]/15 blur-3xl" />
+        <div className="container relative max-w-6xl px-4">
+          <div className="text-center mb-10 sm:mb-12 space-y-3">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-card border border-border shadow-card">
+              <Sparkles className="w-4 h-4 text-[hsl(var(--rgb-cyan))]" />
+              <span className="text-sm font-bold">برنامج VMAX</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl md:text-5xl leading-tight">
+              تحكم كامل في <span className="text-gradient text-glow">الثيمات</span> ببرنامج VMAX
+            </h2>
+            <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+              برنامج <span className="font-bold text-foreground">VMAX</span> خفيف وغير متطلب على الجهاز،
+              يخليك تبدّل الثيمات، تحط صور، GIF، أنمي، أو إحصائيات الجهاز بكل سهولة — صنع ثيم على حساب مزاجك 🔥
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-5">
+            {[
+              { src: themesDashboards, alt: "ثيمات Dashboard لإحصائيات الجهاز" },
+              { src: themesAnime, alt: "ثيمات أنمي متنوعة" },
+              { src: themesPiky, alt: "ثيم بيكاتشو وشخصيات أنمي" },
+              { src: themesEye, alt: "ثيم عين أنمي حمراء" },
+            ].map((img) => (
+              <div key={img.src} className="group rgb-border overflow-hidden">
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full aspect-[3/4] object-cover rounded-2xl transition-transform duration-700 group-hover:scale-110 bg-muted"
+                />
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center pt-10 sm:pt-12">
             <CTAButton>اطلب الآن</CTAButton>
           </div>
         </div>

@@ -13,24 +13,26 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { ZoomIn } from "lucide-react";
 import {
   Shield,
-  MonitorSmartphone,
   Sparkles,
   Check,
   Truck,
-  Star,
   Cpu,
   ArrowLeft,
   CreditCard,
   ShieldCheck,
   AlertTriangle,
-  Palette,
-  Settings2,
-  Gamepad2,
+  Ruler,
+  Wrench,
+  Usb,
 } from "lucide-react";
 import productAnime from "@/assets/product-anime.jpg";
 import productStats from "@/assets/product-stats.jpg";
 import productCpu from "@/assets/product-cpu.jpg";
 import productDashboard from "@/assets/product-dashboard.jpg";
+import productCase from "@/assets/product-case.png";
+import productScreen from "@/assets/product-screen.png";
+import productSide from "@/assets/product-side.png";
+import productDimensions from "@/assets/product-dimensions.png";
 
 const scrollToOrder = () => {
   document.getElementById("order")?.scrollIntoView({ behavior: "smooth" });
@@ -55,6 +57,9 @@ const CTAButton = ({
 
 const Index = () => {
   const galleryImages = [
+    { src: productCase, alt: "حامل GPU داخل كيس PC أبيض" },
+    { src: productScreen, alt: "شاشة IPS مدمجة في الحامل" },
+    { src: productSide, alt: "منظر جانبي للحامل" },
     { src: productAnime, alt: "شاشة الحامل تعرض شخصية أنمي" },
     { src: productStats, alt: "شاشة تعرض إحصائيات الجهاز ووقت" },
     { src: productCpu, alt: "شاشة تعرض استهلاك CPU" },

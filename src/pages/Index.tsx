@@ -1,5 +1,16 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+  type CarouselApi,
+} from "@/components/ui/carousel";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { ZoomIn } from "lucide-react";
 import {
   Shield,
   MonitorSmartphone,

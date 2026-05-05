@@ -289,21 +289,52 @@ const Index = () => {
             ))}
           </div>
 
-          {/* Gallery */}
-          <div className="grid grid-cols-2 md:grid-cols-2 gap-3 sm:gap-6">
-            <div className="overflow-hidden rounded-2xl sm:rounded-3xl shadow-card border border-border aspect-square">
-              <img src={productAnime} alt="شاشة الحامل تعرض شخصية أنمي" className="w-full h-full object-cover zoom-img" />
-            </div>
-            <div className="overflow-hidden rounded-2xl sm:rounded-3xl shadow-card border border-border aspect-square">
-              <img src={productStats} alt="شاشة تعرض إحصائيات الجهاز ووقت" className="w-full h-full object-cover zoom-img" />
-            </div>
-            <div className="overflow-hidden rounded-2xl sm:rounded-3xl shadow-card border border-border aspect-square">
-              <img src={productCpu} alt="شاشة تعرض استهلاك CPU" className="w-full h-full object-cover zoom-img" />
-            </div>
-            <div className="overflow-hidden rounded-2xl sm:rounded-3xl shadow-glow border border-border aspect-square">
-              <img src={productDashboard} alt="شاشة Dashboard أنيقة" className="w-full h-full object-cover zoom-img" />
-            </div>
-          </div>
+          {/* Gallery Carousel */}
+          <Carousel
+            opts={{ align: "center", loop: true, direction: "rtl" }}
+            className="w-full max-w-4xl mx-auto px-2 sm:px-8"
+          >
+            <CarouselContent className="-ml-2 sm:-ml-4">
+              {galleryImages.map((img, i) => (
+                <CarouselItem key={img.src} className="pl-2 sm:pl-4 basis-4/5 sm:basis-1/2 md:basis-1/2">
+                  <button
+                    type="button"
+                    onClick={() => setZoomIndex(i)}
+                    className="group relative block w-full overflow-hidden rounded-2xl sm:rounded-3xl shadow-card border border-border aspect-square focus:outline-none focus:ring-2 focus:ring-ring"
+                    aria-label="تكبير الصورة"
+                  >
+                    <img
+                      src={img.src}
+                      alt={img.alt}
+                      className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110 group-active:scale-105"
+                    />
+                    <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <span className="absolute bottom-3 right-3 flex items-center gap-1 px-3 py-1.5 rounded-full bg-background/80 backdrop-blur-sm border border-border text-xs font-bold opacity-90 group-hover:opacity-100">
+                      <ZoomIn className="w-3.5 h-3.5 text-[hsl(var(--rgb-cyan))]" /> تكبير
+                    </span>
+                  </button>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="hidden sm:flex -right-4 left-auto" />
+            <CarouselNext className="hidden sm:flex -left-4 right-auto" />
+          </Carousel>
+
+          {/* Zoom Dialog */}
+          <Dialog open={zoomIndex !== null} onOpenChange={(o) => !o && setZoomIndex(null)}>
+            <DialogContent className="max-w-3xl p-0 bg-card border-border overflow-hidden">
+              {zoomIndex !== null && (
+                <div className="relative">
+                  <img
+                    src={galleryImages[zoomIndex].src}
+                    alt={galleryImages[zoomIndex].alt}
+                    className="w-full h-auto max-h-[85vh] object-contain bg-black"
+                  />
+                </div>
+              )}
+            </DialogContent>
+          </Dialog>
+
 
           <div className="text-center mt-10 sm:mt-12">
             <CTAButton>اطلب الآن وحوّل Setup تاعك</CTAButton>

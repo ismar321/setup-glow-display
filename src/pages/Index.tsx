@@ -136,13 +136,38 @@ const Index = () => {
 
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-rgb opacity-20 blur-3xl rounded-full" />
-            <div className="relative rgb-border animate-float">
-              <img
-                src={productAnime}
-                alt="حامل GPU مع شاشة IPS داخل كيس Gaming"
-                className="rounded-2xl w-full object-cover"
-              />
-            </div>
+            <Carousel
+              opts={{ align: "center", loop: true, direction: "rtl" }}
+              className="relative w-full max-w-md mx-auto"
+            >
+              <CarouselContent className="-ml-2 sm:-ml-4">
+                {galleryImages.map((img, i) => (
+                  <CarouselItem key={img.src} className="pl-2 sm:pl-4 basis-full">
+                    <button
+                      type="button"
+                      onClick={() => setZoomIndex(i)}
+                      className="group relative block w-full overflow-hidden rounded-2xl rgb-border focus:outline-none"
+                      aria-label="تكبير الصورة"
+                    >
+                      <img
+                        src={img.src}
+                        alt={img.alt}
+                        loading={i === 0 ? "eager" : "lazy"}
+                        decoding="async"
+                        fetchPriority={i === 0 ? "high" : "low"}
+                        sizes="(max-width: 640px) 90vw, 28rem"
+                        className="rounded-2xl w-full aspect-square object-cover transition-transform duration-700 ease-out group-hover:scale-110 bg-muted"
+                      />
+                      <span className="absolute bottom-3 right-3 flex items-center gap-1 px-3 py-1.5 rounded-full bg-background/80 backdrop-blur-sm border border-border text-xs font-bold">
+                        <ZoomIn className="w-3.5 h-3.5 text-[hsl(var(--rgb-cyan))]" /> تكبير
+                      </span>
+                    </button>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="hidden sm:flex -right-4 left-auto" />
+              <CarouselNext className="hidden sm:flex -left-4 right-auto" />
+            </Carousel>
           </div>
         </div>
       </section>

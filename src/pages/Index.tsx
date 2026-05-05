@@ -33,6 +33,10 @@ import productCase from "@/assets/product-case.png";
 import productScreen from "@/assets/product-screen.png";
 import productSide from "@/assets/product-side.png";
 import productDimensions from "@/assets/product-dimensions.png";
+import themesDashboards from "@/assets/themes-dashboards.png";
+import themesAnime from "@/assets/themes-anime.png";
+import themesPiky from "@/assets/themes-piky.png";
+import themesEye from "@/assets/themes-eye.png";
 
 const scrollToOrder = () => {
   document.getElementById("order")?.scrollIntoView({ behavior: "smooth" });

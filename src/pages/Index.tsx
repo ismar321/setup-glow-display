@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import Autoplay from "embla-carousel-autoplay";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import {
@@ -7,7 +8,7 @@ import {
   CarouselItem,
   CarouselPrevious,
   CarouselNext,
-  
+  type CarouselApi,
 } from "@/components/ui/carousel";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { ZoomIn } from "lucide-react";
@@ -70,6 +71,20 @@ const Index = () => {
     { src: productDashboard, alt: "شاشة Dashboard أنيقة" },
   ];
   const [zoomIndex, setZoomIndex] = useState<number | null>(null);
+  const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const autoplay = useRef(Autoplay({ delay: 3500, stopOnInteraction: false, stopOnMouseEnter: true }));
+
+  useEffect(() => {
+    if (!carouselApi) return;
+    const onSelect = () => setCurrentSlide(carouselApi.selectedScrollSnap());
+    onSelect();
+    carouselApi.on("select", onSelect);
+    carouselApi.on("reInit", onSelect);
+    return () => {
+      carouselApi.off("select", onSelect);
+    };
+  }, [carouselApi]);
   return (
     <div dir="rtl" className="min-h-screen bg-background text-foreground">
       {/* NAV */}
@@ -141,8 +156,10 @@ const Index = () => {
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-rgb opacity-20 blur-3xl rounded-full" />
             <Carousel
+              setApi={setCarouselApi}
               opts={{ align: "center", loop: true, direction: "rtl" }}
-              className="relative w-full max-w-md mx-auto"
+              plugins={[autoplay.current]}
+              className="relative w-full max-w-md lg:max-w-2xl mx-auto"
             >
               <CarouselContent className="-ml-2 sm:-ml-4">
                 {galleryImages.map((img, i) => (
@@ -159,11 +176,14 @@ const Index = () => {
                         loading={i === 0 ? "eager" : "lazy"}
                         decoding="async"
                         fetchPriority={i === 0 ? "high" : "low"}
-                        sizes="(max-width: 640px) 90vw, 28rem"
+                        sizes="(max-width: 640px) 90vw, (max-width: 1024px) 28rem, 42rem"
                         className="rounded-2xl w-full aspect-square object-cover transition-transform duration-700 ease-out group-hover:scale-110 bg-muted"
                       />
                       <span className="absolute bottom-3 right-3 flex items-center gap-1 px-3 py-1.5 rounded-full bg-background/80 backdrop-blur-sm border border-border text-xs font-bold">
                         <ZoomIn className="w-3.5 h-3.5 text-[hsl(var(--rgb-cyan))]" /> تكبير
+                      </span>
+                      <span className="absolute top-3 left-3 px-3 py-1.5 rounded-full bg-background/80 backdrop-blur-sm border border-primary/40 text-xs font-black text-[hsl(var(--rgb-cyan))]">
+                        {i + 1} / {galleryImages.length}
                       </span>
                     </button>
                   </CarouselItem>
@@ -172,6 +192,23 @@ const Index = () => {
               <CarouselPrevious className="hidden sm:flex -right-4 left-auto" />
               <CarouselNext className="hidden sm:flex -left-4 right-auto" />
             </Carousel>
+
+            {/* Slide indicator dots */}
+            <div className="flex items-center justify-center gap-2 mt-5">
+              {galleryImages.map((_, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  aria-label={`اذهب إلى الصورة ${i + 1}`}
+                  onClick={() => carouselApi?.scrollTo(i)}
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    currentSlide === i
+                      ? "w-8 bg-gradient-primary shadow-blue"
+                      : "w-2 bg-border hover:bg-muted-foreground"
+                  }`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -179,10 +216,10 @@ const Index = () => {
       {/* PROBLEM + SOLUTION (single section) */}
       <section className="py-14 sm:py-20 relative overflow-hidden">
         <div className="absolute inset-0 grid-bg opacity-40" />
-        <div className="container relative max-w-6xl px-4">
-          <div className="grid lg:grid-cols-2 gap-6 sm:gap-10 items-stretch">
-            {/* Problem */}
-            <div className="space-y-5 sm:space-y-6">
+        <div className="container relative max-w-7xl px-4">
+          <div className="grid lg:grid-cols-[1fr_minmax(260px,1.2fr)_1fr] gap-6 sm:gap-8 items-start">
+            {/* Problem column */}
+            <div className="space-y-5 order-1">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-destructive/10 text-destructive font-bold text-sm border border-destructive/20">
                 <AlertTriangle className="w-4 h-4" /> المشكلة
               </div>
@@ -195,7 +232,10 @@ const Index = () => {
                   "تخاف يكسر لوحة الأم؟",
                   "Setup تاعك ناقصو لمسة احترافية؟",
                 ].map((t) => (
-                  <Card key={t} className="p-4 sm:p-5 bg-gradient-card border-destructive/20 shadow-card flex items-center gap-3">
+                  <Card
+                    key={t}
+                    className="p-4 sm:p-5 bg-gradient-card border-destructive/20 shadow-card flex items-center gap-3"
+                  >
                     <span className="w-10 h-10 rounded-xl bg-destructive/10 flex items-center justify-center shrink-0">
                       <AlertTriangle className="w-5 h-5 text-destructive" />
                     </span>
@@ -205,18 +245,9 @@ const Index = () => {
               </div>
             </div>
 
-            {/* Solution */}
-            <div className="space-y-5 sm:space-y-6">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-[hsl(var(--rgb-cyan))] font-bold text-sm border border-primary/20">
-                <Sparkles className="w-4 h-4" /> الحل
-              </div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl leading-tight">
-                <span className="text-gradient text-glow">Upgrade كامل</span> للـ Setup تاعك
-              </h2>
-              <p className="text-base sm:text-lg text-muted-foreground leading-loose">
-                يحمي كرت الشاشة واللوحة الأم من الاعوجاج والكسر بسبب الوزن، ومعاه شاشة 4.58" سريعة الاستجابة تعطيك عرض مباشر وأنيق للحرارة، الأداء، والثيمات.
-              </p>
-              <div className="rounded-2xl overflow-hidden video-glow bg-card border border-border">
+            {/* Centered video (between on desktop, in middle on mobile) */}
+            <div className="order-3 lg:order-2 lg:sticky lg:top-24 space-y-4">
+              <div className="rounded-2xl overflow-hidden video-glow bg-card border border-border rgb-border">
                 <video
                   src=""
                   controls
@@ -230,6 +261,37 @@ const Index = () => {
                   المتصفح لا يدعم تشغيل الفيديو.
                 </video>
               </div>
+              <p className="text-center text-sm sm:text-base text-muted-foreground leading-relaxed">
+                شوف بعينيك كيفاش <span className="text-gradient font-bold">الحامل</span> يحل
+                المشكل ويعطي للـ Setup تاعك لمسة احترافية ✨
+              </p>
+            </div>
+
+            {/* Solution column (mirror of problems) */}
+            <div className="space-y-5 order-2 lg:order-3">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-[hsl(var(--rgb-cyan))] font-bold text-sm border border-primary/20">
+                <Sparkles className="w-4 h-4" /> الحل
+              </div>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl leading-tight">
+                <span className="text-gradient text-glow">Upgrade كامل</span> للـ Setup
+              </h2>
+              <div className="space-y-3">
+                {[
+                  "يحمي كرت الشاشة من الانحناء والكسر",
+                  "يثبت اللوحة الأم ويوزع الوزن مزيان",
+                  "تصميم RGB يعطي Setup احترافي ومميز",
+                ].map((t) => (
+                  <Card
+                    key={t}
+                    className="p-4 sm:p-5 bg-gradient-card border-primary/30 shadow-card flex items-center gap-3 hover:shadow-glow transition-all duration-500"
+                  >
+                    <span className="w-10 h-10 rounded-xl bg-gradient-primary flex items-center justify-center shrink-0 shadow-blue">
+                      <Check className="w-5 h-5 text-primary-foreground" />
+                    </span>
+                    <p className="text-sm sm:text-base font-bold leading-relaxed">{t}</p>
+                  </Card>
+                ))}
+              </div>
             </div>
           </div>
 
@@ -240,21 +302,37 @@ const Index = () => {
       </section>
 
       {/* VMAX SOFTWARE */}
-      <section className="py-14 sm:py-20 relative overflow-hidden bg-card/40">
+      <section className="py-16 sm:py-24 relative overflow-hidden bg-[hsl(222_50%_5%)]">
         <div className="absolute inset-0 grid-bg opacity-30" />
-        <div className="absolute top-1/2 right-1/4 w-96 h-96 rounded-full bg-[hsl(var(--rgb-purple))]/15 blur-3xl" />
+        <div className="absolute top-1/2 right-1/4 w-96 h-96 rounded-full bg-[hsl(var(--rgb-purple))]/20 blur-3xl" />
+        <div className="absolute -top-10 left-1/4 w-80 h-80 rounded-full bg-[hsl(var(--rgb-cyan))]/15 blur-3xl" />
         <div className="container relative max-w-6xl px-4">
-          <div className="text-center mb-10 sm:mb-12 space-y-3">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-card border border-border shadow-card">
+          <div className="text-center mb-12 sm:mb-14 space-y-5">
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[hsl(222_50%_9%)] border border-primary/40 shadow-blue">
               <Sparkles className="w-4 h-4 text-[hsl(var(--rgb-cyan))]" />
-              <span className="text-sm font-bold">برنامج VMAX</span>
+              <span className="text-sm font-black tracking-wide">برنامج VMAX</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-5xl leading-tight">
-              تحكم كامل في <span className="text-gradient text-glow">الثيمات</span> ببرنامج VMAX
+            <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-tight">
+              تحكم كامل في <span className="text-gradient text-glow">الثيمات</span>
+              <br className="hidden sm:block" /> ببرنامج <span className="text-gradient">VMAX</span>
             </h2>
-            <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-              برنامج <span className="font-bold text-foreground">VMAX</span> خفيف وغير متطلب على الجهاز،
-              يخليك تبدّل الثيمات، تحط صور، GIF، أنمي، أو إحصائيات الجهاز بكل سهولة — صنع ثيم على حساب مزاجك 🔥
+            <p className="text-foreground/80 text-base sm:text-xl max-w-3xl mx-auto leading-loose">
+              برنامج <span className="px-2 py-0.5 mx-1 rounded-md bg-[hsl(222_50%_10%)] border border-primary/40 font-black text-foreground">VMAX</span>
+              خفيف وغير متطلب على الجهاز، يخليك تبدّل
+              <span className="px-2 py-0.5 mx-1 rounded-md bg-[hsl(222_50%_10%)] border border-[hsl(var(--rgb-cyan))]/40 font-black text-[hsl(var(--rgb-cyan))]">الثيمات</span>
+              ، تحط
+              <span className="px-2 py-0.5 mx-1 rounded-md bg-[hsl(222_50%_10%)] border border-primary/40 font-black text-foreground">صور</span>
+              ،
+              <span className="px-2 py-0.5 mx-1 rounded-md bg-[hsl(222_50%_10%)] border border-primary/40 font-black text-foreground">GIF</span>
+              ،
+              <span className="px-2 py-0.5 mx-1 rounded-md bg-[hsl(222_50%_10%)] border border-[hsl(var(--rgb-purple))]/50 font-black text-[hsl(var(--rgb-purple))]">أنمي</span>
+              ، أو
+              <span className="px-2 py-0.5 mx-1 rounded-md bg-[hsl(222_50%_10%)] border border-primary/40 font-black text-foreground">إحصائيات الجهاز</span>
+              بكل سهولة — اصنع
+              <span className="px-2 py-0.5 mx-1 rounded-md bg-[hsl(222_50%_10%)] border border-[hsl(var(--rgb-cyan))]/40 font-black text-[hsl(var(--rgb-cyan))]">ثيم</span>
+              على حساب
+              <span className="px-2 py-0.5 mx-1 rounded-md bg-[hsl(222_50%_10%)] border border-[hsl(var(--rgb-purple))]/50 font-black text-[hsl(var(--rgb-purple))]">مزاجك</span>
+              🔥
             </p>
           </div>
 

@@ -217,9 +217,37 @@ const Index = () => {
       <section className="py-14 sm:py-20 relative overflow-hidden">
         <div className="absolute inset-0 grid-bg opacity-40" />
         <div className="container relative max-w-7xl px-4">
-          <div className="grid lg:grid-cols-[1fr_minmax(260px,1.2fr)_1fr] gap-6 sm:gap-8 items-start">
+          {/* Row 1: Solution (left) + Problem (right) */}
+          <div className="grid lg:grid-cols-2 gap-4 sm:gap-6 items-start">
+            {/* Solution column */}
+            <div className="space-y-5">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-[hsl(var(--rgb-cyan))] font-bold text-sm border border-primary/20">
+                <Sparkles className="w-4 h-4" /> الحل
+              </div>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl leading-tight">
+                <span className="text-gradient text-glow">Upgrade كامل</span> للـ Setup
+              </h2>
+              <div className="space-y-3">
+                {[
+                  "يحمي كرت الشاشة من الانحناء والكسر",
+                  "يثبت اللوحة الأم ويوزع الوزن مزيان",
+                  "تصميم RGB يعطي Setup احترافي ومميز",
+                ].map((t) => (
+                  <Card
+                    key={t}
+                    className="p-4 sm:p-5 bg-gradient-card border-primary/30 shadow-card flex items-center gap-3 hover:shadow-glow transition-all duration-500"
+                  >
+                    <span className="w-10 h-10 rounded-xl bg-gradient-primary flex items-center justify-center shrink-0 shadow-blue">
+                      <Check className="w-5 h-5 text-primary-foreground" />
+                    </span>
+                    <p className="text-sm sm:text-base font-bold leading-relaxed">{t}</p>
+                  </Card>
+                ))}
+              </div>
+            </div>
+
             {/* Problem column */}
-            <div className="space-y-5 order-1">
+            <div className="space-y-5">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-destructive/10 text-destructive font-bold text-sm border border-destructive/20">
                 <AlertTriangle className="w-4 h-4" /> المشكلة
               </div>
@@ -244,54 +272,24 @@ const Index = () => {
                 ))}
               </div>
             </div>
+          </div>
 
-            {/* Centered video (between on desktop, in middle on mobile) */}
-            <div className="order-3 lg:order-2 lg:sticky lg:top-24 space-y-4">
-              <div className="rounded-2xl overflow-hidden video-glow bg-card border border-border rgb-border">
-                <video
-                  src=""
-                  controls
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  poster={productDashboard}
-                  className="w-full h-auto block aspect-video bg-black"
-                >
-                  المتصفح لا يدعم تشغيل الفيديو.
-                </video>
-              </div>
-              <p className="text-center text-sm sm:text-base text-muted-foreground leading-relaxed">
-                شوف بعينيك كيفاش <span className="text-gradient font-bold">الحامل</span> يحل
-                المشكل ويعطي للـ Setup تاعك لمسة احترافية ✨
-              </p>
-            </div>
-
-            {/* Solution column (mirror of problems) */}
-            <div className="space-y-5 order-2 lg:order-3">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-[hsl(var(--rgb-cyan))] font-bold text-sm border border-primary/20">
-                <Sparkles className="w-4 h-4" /> الحل
-              </div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl leading-tight">
-                <span className="text-gradient text-glow">Upgrade كامل</span> للـ Setup
-              </h2>
-              <div className="space-y-3">
-                {[
-                  "يحمي كرت الشاشة من الانحناء والكسر",
-                  "يثبت اللوحة الأم ويوزع الوزن مزيان",
-                  "تصميم RGB يعطي Setup احترافي ومميز",
-                ].map((t) => (
-                  <Card
-                    key={t}
-                    className="p-4 sm:p-5 bg-gradient-card border-primary/30 shadow-card flex items-center gap-3 hover:shadow-glow transition-all duration-500"
-                  >
-                    <span className="w-10 h-10 rounded-xl bg-gradient-primary flex items-center justify-center shrink-0 shadow-blue">
-                      <Check className="w-5 h-5 text-primary-foreground" />
-                    </span>
-                    <p className="text-sm sm:text-base font-bold leading-relaxed">{t}</p>
-                  </Card>
-                ))}
-              </div>
+          {/* Row 2: Centered large video */}
+          <div className="mt-8 sm:mt-10 mx-auto w-full" style={{ maxWidth: "900px" }}>
+            <div className="rounded-2xl overflow-hidden video-glow bg-card border border-border rgb-border">
+              <video
+                src=""
+                controls
+                autoPlay
+                muted
+                loop
+                playsInline
+                poster={productDashboard}
+                className="w-full h-auto block bg-black"
+                style={{ minHeight: "500px" }}
+              >
+                المتصفح لا يدعم تشغيل الفيديو.
+              </video>
             </div>
           </div>
 

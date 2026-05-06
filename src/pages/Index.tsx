@@ -156,8 +156,10 @@ const Index = () => {
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-rgb opacity-20 blur-3xl rounded-full" />
             <Carousel
+              setApi={setCarouselApi}
               opts={{ align: "center", loop: true, direction: "rtl" }}
-              className="relative w-full max-w-md mx-auto"
+              plugins={[autoplay.current]}
+              className="relative w-full max-w-md lg:max-w-2xl mx-auto"
             >
               <CarouselContent className="-ml-2 sm:-ml-4">
                 {galleryImages.map((img, i) => (
@@ -174,11 +176,14 @@ const Index = () => {
                         loading={i === 0 ? "eager" : "lazy"}
                         decoding="async"
                         fetchPriority={i === 0 ? "high" : "low"}
-                        sizes="(max-width: 640px) 90vw, 28rem"
+                        sizes="(max-width: 640px) 90vw, (max-width: 1024px) 28rem, 42rem"
                         className="rounded-2xl w-full aspect-square object-cover transition-transform duration-700 ease-out group-hover:scale-110 bg-muted"
                       />
                       <span className="absolute bottom-3 right-3 flex items-center gap-1 px-3 py-1.5 rounded-full bg-background/80 backdrop-blur-sm border border-border text-xs font-bold">
                         <ZoomIn className="w-3.5 h-3.5 text-[hsl(var(--rgb-cyan))]" /> تكبير
+                      </span>
+                      <span className="absolute top-3 left-3 px-3 py-1.5 rounded-full bg-background/80 backdrop-blur-sm border border-primary/40 text-xs font-black text-[hsl(var(--rgb-cyan))]">
+                        {i + 1} / {galleryImages.length}
                       </span>
                     </button>
                   </CarouselItem>
@@ -187,6 +192,23 @@ const Index = () => {
               <CarouselPrevious className="hidden sm:flex -right-4 left-auto" />
               <CarouselNext className="hidden sm:flex -left-4 right-auto" />
             </Carousel>
+
+            {/* Slide indicator dots */}
+            <div className="flex items-center justify-center gap-2 mt-5">
+              {galleryImages.map((_, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  aria-label={`اذهب إلى الصورة ${i + 1}`}
+                  onClick={() => carouselApi?.scrollTo(i)}
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    currentSlide === i
+                      ? "w-8 bg-gradient-primary shadow-blue"
+                      : "w-2 bg-border hover:bg-muted-foreground"
+                  }`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>

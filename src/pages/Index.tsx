@@ -302,21 +302,37 @@ const Index = () => {
       </section>
 
       {/* VMAX SOFTWARE */}
-      <section className="py-14 sm:py-20 relative overflow-hidden bg-card/40">
+      <section className="py-16 sm:py-24 relative overflow-hidden bg-[hsl(222_50%_5%)]">
         <div className="absolute inset-0 grid-bg opacity-30" />
-        <div className="absolute top-1/2 right-1/4 w-96 h-96 rounded-full bg-[hsl(var(--rgb-purple))]/15 blur-3xl" />
+        <div className="absolute top-1/2 right-1/4 w-96 h-96 rounded-full bg-[hsl(var(--rgb-purple))]/20 blur-3xl" />
+        <div className="absolute -top-10 left-1/4 w-80 h-80 rounded-full bg-[hsl(var(--rgb-cyan))]/15 blur-3xl" />
         <div className="container relative max-w-6xl px-4">
-          <div className="text-center mb-10 sm:mb-12 space-y-3">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-card border border-border shadow-card">
+          <div className="text-center mb-12 sm:mb-14 space-y-5">
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[hsl(222_50%_9%)] border border-primary/40 shadow-blue">
               <Sparkles className="w-4 h-4 text-[hsl(var(--rgb-cyan))]" />
-              <span className="text-sm font-bold">برنامج VMAX</span>
+              <span className="text-sm font-black tracking-wide">برنامج VMAX</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-5xl leading-tight">
-              تحكم كامل في <span className="text-gradient text-glow">الثيمات</span> ببرنامج VMAX
+            <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-tight">
+              تحكم كامل في <span className="text-gradient text-glow">الثيمات</span>
+              <br className="hidden sm:block" /> ببرنامج <span className="text-gradient">VMAX</span>
             </h2>
-            <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-              برنامج <span className="font-bold text-foreground">VMAX</span> خفيف وغير متطلب على الجهاز،
-              يخليك تبدّل الثيمات، تحط صور، GIF، أنمي، أو إحصائيات الجهاز بكل سهولة — صنع ثيم على حساب مزاجك 🔥
+            <p className="text-foreground/80 text-base sm:text-xl max-w-3xl mx-auto leading-loose">
+              برنامج <span className="px-2 py-0.5 mx-1 rounded-md bg-[hsl(222_50%_10%)] border border-primary/40 font-black text-foreground">VMAX</span>
+              خفيف وغير متطلب على الجهاز، يخليك تبدّل
+              <span className="px-2 py-0.5 mx-1 rounded-md bg-[hsl(222_50%_10%)] border border-[hsl(var(--rgb-cyan))]/40 font-black text-[hsl(var(--rgb-cyan))]">الثيمات</span>
+              ، تحط
+              <span className="px-2 py-0.5 mx-1 rounded-md bg-[hsl(222_50%_10%)] border border-primary/40 font-black text-foreground">صور</span>
+              ،
+              <span className="px-2 py-0.5 mx-1 rounded-md bg-[hsl(222_50%_10%)] border border-primary/40 font-black text-foreground">GIF</span>
+              ،
+              <span className="px-2 py-0.5 mx-1 rounded-md bg-[hsl(222_50%_10%)] border border-[hsl(var(--rgb-purple))]/50 font-black text-[hsl(var(--rgb-purple))]">أنمي</span>
+              ، أو
+              <span className="px-2 py-0.5 mx-1 rounded-md bg-[hsl(222_50%_10%)] border border-primary/40 font-black text-foreground">إحصائيات الجهاز</span>
+              بكل سهولة — اصنع
+              <span className="px-2 py-0.5 mx-1 rounded-md bg-[hsl(222_50%_10%)] border border-[hsl(var(--rgb-cyan))]/40 font-black text-[hsl(var(--rgb-cyan))]">ثيم</span>
+              على حساب
+              <span className="px-2 py-0.5 mx-1 rounded-md bg-[hsl(222_50%_10%)] border border-[hsl(var(--rgb-purple))]/50 font-black text-[hsl(var(--rgb-purple))]">مزاجك</span>
+              🔥
             </p>
           </div>
 

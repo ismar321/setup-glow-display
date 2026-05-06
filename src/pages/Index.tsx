@@ -216,10 +216,10 @@ const Index = () => {
       {/* PROBLEM + SOLUTION (single section) */}
       <section className="py-14 sm:py-20 relative overflow-hidden">
         <div className="absolute inset-0 grid-bg opacity-40" />
-        <div className="container relative max-w-6xl px-4">
-          <div className="grid lg:grid-cols-2 gap-6 sm:gap-10 items-stretch">
-            {/* Problem */}
-            <div className="space-y-5 sm:space-y-6">
+        <div className="container relative max-w-7xl px-4">
+          <div className="grid lg:grid-cols-[1fr_minmax(260px,1.2fr)_1fr] gap-6 sm:gap-8 items-start">
+            {/* Problem column */}
+            <div className="space-y-5 order-1">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-destructive/10 text-destructive font-bold text-sm border border-destructive/20">
                 <AlertTriangle className="w-4 h-4" /> المشكلة
               </div>
@@ -232,7 +232,10 @@ const Index = () => {
                   "تخاف يكسر لوحة الأم؟",
                   "Setup تاعك ناقصو لمسة احترافية؟",
                 ].map((t) => (
-                  <Card key={t} className="p-4 sm:p-5 bg-gradient-card border-destructive/20 shadow-card flex items-center gap-3">
+                  <Card
+                    key={t}
+                    className="p-4 sm:p-5 bg-gradient-card border-destructive/20 shadow-card flex items-center gap-3"
+                  >
                     <span className="w-10 h-10 rounded-xl bg-destructive/10 flex items-center justify-center shrink-0">
                       <AlertTriangle className="w-5 h-5 text-destructive" />
                     </span>
@@ -242,18 +245,9 @@ const Index = () => {
               </div>
             </div>
 
-            {/* Solution */}
-            <div className="space-y-5 sm:space-y-6">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-[hsl(var(--rgb-cyan))] font-bold text-sm border border-primary/20">
-                <Sparkles className="w-4 h-4" /> الحل
-              </div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl leading-tight">
-                <span className="text-gradient text-glow">Upgrade كامل</span> للـ Setup تاعك
-              </h2>
-              <p className="text-base sm:text-lg text-muted-foreground leading-loose">
-                يحمي كرت الشاشة واللوحة الأم من الاعوجاج والكسر بسبب الوزن، ومعاه شاشة 4.58" سريعة الاستجابة تعطيك عرض مباشر وأنيق للحرارة، الأداء، والثيمات.
-              </p>
-              <div className="rounded-2xl overflow-hidden video-glow bg-card border border-border">
+            {/* Centered video (between on desktop, in middle on mobile) */}
+            <div className="order-3 lg:order-2 lg:sticky lg:top-24 space-y-4">
+              <div className="rounded-2xl overflow-hidden video-glow bg-card border border-border rgb-border">
                 <video
                   src=""
                   controls
@@ -266,6 +260,37 @@ const Index = () => {
                 >
                   المتصفح لا يدعم تشغيل الفيديو.
                 </video>
+              </div>
+              <p className="text-center text-sm sm:text-base text-muted-foreground leading-relaxed">
+                شوف بعينيك كيفاش <span className="text-gradient font-bold">الحامل</span> يحل
+                المشكل ويعطي للـ Setup تاعك لمسة احترافية ✨
+              </p>
+            </div>
+
+            {/* Solution column (mirror of problems) */}
+            <div className="space-y-5 order-2 lg:order-3">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-[hsl(var(--rgb-cyan))] font-bold text-sm border border-primary/20">
+                <Sparkles className="w-4 h-4" /> الحل
+              </div>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl leading-tight">
+                <span className="text-gradient text-glow">Upgrade كامل</span> للـ Setup
+              </h2>
+              <div className="space-y-3">
+                {[
+                  "يحمي كرت الشاشة من الانحناء والكسر",
+                  "يثبت اللوحة الأم ويوزع الوزن مزيان",
+                  "تصميم RGB يعطي Setup احترافي ومميز",
+                ].map((t) => (
+                  <Card
+                    key={t}
+                    className="p-4 sm:p-5 bg-gradient-card border-primary/30 shadow-card flex items-center gap-3 hover:shadow-glow transition-all duration-500"
+                  >
+                    <span className="w-10 h-10 rounded-xl bg-gradient-primary flex items-center justify-center shrink-0 shadow-blue">
+                      <Check className="w-5 h-5 text-primary-foreground" />
+                    </span>
+                    <p className="text-sm sm:text-base font-bold leading-relaxed">{t}</p>
+                  </Card>
+                ))}
               </div>
             </div>
           </div>

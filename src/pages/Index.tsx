@@ -71,6 +71,20 @@ const Index = () => {
     { src: productDashboard, alt: "شاشة Dashboard أنيقة" },
   ];
   const [zoomIndex, setZoomIndex] = useState<number | null>(null);
+  const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const autoplay = useRef(Autoplay({ delay: 3500, stopOnInteraction: false, stopOnMouseEnter: true }));
+
+  useEffect(() => {
+    if (!carouselApi) return;
+    const onSelect = () => setCurrentSlide(carouselApi.selectedScrollSnap());
+    onSelect();
+    carouselApi.on("select", onSelect);
+    carouselApi.on("reInit", onSelect);
+    return () => {
+      carouselApi.off("select", onSelect);
+    };
+  }, [carouselApi]);
   return (
     <div dir="rtl" className="min-h-screen bg-background text-foreground">
       {/* NAV */}

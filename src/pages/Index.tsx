@@ -38,6 +38,9 @@ import themesDashboards from "@/assets/themes-dashboards.png";
 import themesAnime from "@/assets/themes-anime.png";
 import themesPiky from "@/assets/themes-piky.png";
 import themesEye from "@/assets/themes-eye.png";
+import dimCnc from "@/assets/dim-cnc.jpg";
+import dimSize from "@/assets/dim-size.jpg";
+import dimAccessories from "@/assets/dim-accessories.jpg";
 
 const scrollToOrder = () => {
   document.getElementById("order")?.scrollIntoView({ behavior: "smooth" });
@@ -420,6 +423,25 @@ const Index = () => {
                 </Card>
               ))}
             </div>
+          </div>
+
+          {/* Illustrative gallery — like program section */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mt-10 sm:mt-14">
+            {[
+              { src: dimCnc, alt: "هيكل ألمنيوم CNC مقاوم للخدوش" },
+              { src: dimSize, alt: "أبعاد المنتج بالتفصيل — 130mm × 128mm" },
+              { src: dimAccessories, alt: "محتويات العلبة والإكسسوارات" },
+            ].map((img) => (
+              <div key={img.src} className="group rgb-border overflow-hidden">
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full aspect-[3/4] object-cover rounded-2xl transition-transform duration-700 group-hover:scale-105 bg-muted"
+                />
+              </div>
+            ))}
           </div>
 
           {/* Zoom Dialog */}

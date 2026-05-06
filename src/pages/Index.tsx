@@ -159,7 +159,7 @@ const Index = () => {
               setApi={setCarouselApi}
               opts={{ align: "center", loop: true, direction: "rtl" }}
               plugins={[autoplay.current]}
-              className="relative w-full max-w-md lg:max-w-2xl mx-auto"
+              className="relative w-full max-w-md lg:max-w-lg mx-auto"
             >
               <CarouselContent className="-ml-2 sm:-ml-4">
                 {galleryImages.map((img, i) => (
@@ -176,13 +176,13 @@ const Index = () => {
                         loading={i === 0 ? "eager" : "lazy"}
                         decoding="async"
                         fetchPriority={i === 0 ? "high" : "low"}
-                        sizes="(max-width: 640px) 90vw, (max-width: 1024px) 28rem, 42rem"
+                        sizes="(max-width: 640px) 90vw, 32rem"
                         className="rounded-2xl w-full aspect-square object-cover transition-transform duration-700 ease-out group-hover:scale-110 bg-muted"
                       />
                       <span className="absolute bottom-3 right-3 flex items-center gap-1 px-3 py-1.5 rounded-full bg-background/80 backdrop-blur-sm border border-border text-xs font-bold">
                         <ZoomIn className="w-3.5 h-3.5 text-[hsl(var(--rgb-cyan))]" /> تكبير
                       </span>
-                      <span className="absolute top-3 left-3 px-3 py-1.5 rounded-full bg-background/80 backdrop-blur-sm border border-primary/40 text-xs font-black text-[hsl(var(--rgb-cyan))]">
+                      <span dir="ltr" className="absolute top-3 left-3 px-3 py-1.5 rounded-full bg-background/80 backdrop-blur-sm border border-primary/40 text-xs font-black text-[hsl(var(--rgb-cyan))] tabular-nums">
                         {i + 1} / {galleryImages.length}
                       </span>
                     </button>

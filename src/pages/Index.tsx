@@ -425,21 +425,23 @@ const Index = () => {
             </div>
           </div>
 
-          {/* Illustrative gallery — like program section */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mt-10 sm:mt-14">
+          {/* Illustrative gallery — uniform sizing */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mt-10 sm:mt-14">
             {[
               { src: dimCnc, alt: "هيكل ألمنيوم CNC مقاوم للخدوش" },
               { src: dimSize, alt: "أبعاد المنتج بالتفصيل — 130mm × 128mm" },
               { src: dimAccessories, alt: "محتويات العلبة والإكسسوارات" },
             ].map((img) => (
               <div key={img.src} className="group rgb-border overflow-hidden">
-                <img
-                  src={img.src}
-                  alt={img.alt}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full h-full aspect-[3/4] object-cover rounded-2xl transition-transform duration-700 group-hover:scale-105 bg-muted"
-                />
+                <div className="aspect-[4/5] w-full bg-background rounded-2xl overflow-hidden flex items-center justify-center">
+                  <img
+                    src={img.src}
+                    alt={img.alt}
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
+                  />
+                </div>
               </div>
             ))}
           </div>

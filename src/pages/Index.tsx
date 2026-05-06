@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import Autoplay from "embla-carousel-autoplay";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import {
@@ -7,7 +8,7 @@ import {
   CarouselItem,
   CarouselPrevious,
   CarouselNext,
-  
+  type CarouselApi,
 } from "@/components/ui/carousel";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { ZoomIn } from "lucide-react";

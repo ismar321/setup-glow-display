@@ -46,109 +46,6 @@ const scrollToOrder = () => {
   document.getElementById("order")?.scrollIntoView({ behavior: "smooth" });
 };
 
-// Mosaic strip: horizontal row of slots. Each slot is either a single image
-// or a stacked pair (top + bottom). On mobile, falls back to a 2-col grid.
-type MosaicSlot =
-  | { kind: "single"; widthPct: number; img: { src: string; alt: string } }
-  | {
-      kind: "pair";
-      widthPct: number;
-      top: { src: string; alt: string };
-      bottom: { src: string; alt: string };
-    };
-
-const MosaicStrip = ({
-  slots,
-  height = 320,
-  onImageClick,
-}: {
-  slots: MosaicSlot[];
-  height?: number;
-  onImageClick?: (src: string) => void;
-}) => {
-  // Flatten all images for the mobile grid fallback
-  const flat: { src: string; alt: string }[] = slots.flatMap((s) =>
-    s.kind === "single" ? [s.img] : [s.top, s.bottom]
-  );
-
-  const imgClass =
-    "w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 bg-muted";
-  const wrapClass =
-    "group relative block w-full h-full overflow-hidden border border-white/10 cursor-zoom-in";
-
-  const renderImg = (img: { src: string; alt: string }, rounded: string) => (
-    <button
-      type="button"
-      onClick={() => onImageClick?.(img.src)}
-      className={`${wrapClass} ${rounded}`}
-      aria-label="تكبير الصورة"
-    >
-      <img src={img.src} alt={img.alt} loading="lazy" decoding="async" className={imgClass} />
-    </button>
-  );
-
-  return (
-    <>
-      {/* Desktop / tablet: horizontal mosaic strip */}
-      <div
-        className="hidden sm:flex w-full overflow-hidden rounded-xl"
-        style={{ height, gap: "4px" }}
-        dir="ltr"
-      >
-        {slots.map((slot, i) => {
-          const isFirst = i === 0;
-          const isLast = i === slots.length - 1;
-          const outer =
-            isFirst && isLast
-              ? "rounded-xl"
-              : isFirst
-              ? "rounded-l-xl"
-              : isLast
-              ? "rounded-r-xl"
-              : "";
-          return (
-            <div key={i} style={{ width: `${slot.widthPct}%` }} className="h-full shrink-0">
-              {slot.kind === "single" ? (
-                renderImg(slot.img, outer)
-              ) : (
-                <div className="flex flex-col h-full" style={{ gap: "4px" }}>
-                  <div className="h-1/2">
-                    {renderImg(
-                      slot.top,
-                      isFirst ? "rounded-tl-xl" : isLast ? "rounded-tr-xl" : ""
-                    )}
-                  </div>
-                  <div className="h-1/2">
-                    {renderImg(
-                      slot.bottom,
-                      isFirst ? "rounded-bl-xl" : isLast ? "rounded-br-xl" : ""
-                    )}
-                  </div>
-                </div>
-              )}
-            </div>
-          );
-        })}
-      </div>
-
-      {/* Mobile: 2 per row */}
-      <div className="sm:hidden grid grid-cols-2 gap-1">
-        {flat.map((img, i) => (
-          <button
-            key={i}
-            type="button"
-            onClick={() => onImageClick?.(img.src)}
-            className="group relative block aspect-[3/4] overflow-hidden rounded-xl border border-white/10 cursor-zoom-in"
-            aria-label="تكبير الصورة"
-          >
-            <img src={img.src} alt={img.alt} loading="lazy" decoding="async" className={imgClass} />
-          </button>
-        ))}
-      </div>
-    </>
-  );
-};
-
 const CTAButton = ({
   children = "اطلب الآن",
   className = "",
@@ -177,7 +74,6 @@ const Index = () => {
     { src: productDashboard, alt: "شاشة Dashboard أنيقة" },
   ];
   const [zoomIndex, setZoomIndex] = useState<number | null>(null);
-  const [zoomSrc, setZoomSrc] = useState<string | null>(null);
   const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
   const autoplay = useRef(Autoplay({ delay: 3500, stopOnInteraction: false, stopOnMouseEnter: true }));
@@ -320,36 +216,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* LIFESTYLE GALLERY — mosaic strip */}
-      <section className="py-12 sm:py-16 bg-card/30">
-        <div className="container max-w-7xl px-4">
-          <div className="text-center mb-8 sm:mb-10 space-y-2">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl">
-              صور <span className="text-gradient text-glow">المنتج</span>
-            </h2>
-            <p className="text-muted-foreground text-sm sm:text-base">
-              لقطات حقيقية للحامل داخل Setup
-            </p>
-          </div>
-          <MosaicStrip
-            height={340}
-            onImageClick={(src) => setZoomSrc(src)}
-            slots={[
-              { kind: "single", widthPct: 25, img: { src: productCase, alt: "حامل GPU داخل كيس PC" } },
-              { kind: "single", widthPct: 22, img: { src: productSide, alt: "منظر جانبي للحامل" } },
-              { kind: "pair", widthPct: 18,
-                top: { src: productScreen, alt: "شاشة IPS مدمجة" },
-                bottom: { src: productAnime, alt: "شاشة تعرض شخصية أنمي" } },
-              { kind: "pair", widthPct: 18,
-                top: { src: productStats, alt: "شاشة تعرض إحصائيات" },
-                bottom: { src: productCpu, alt: "شاشة تعرض استهلاك CPU" } },
-              { kind: "single", widthPct: 17, img: { src: productDashboard, alt: "Dashboard أنيقة" } },
-            ]}
-          />
-        </div>
-      </section>
-
-
+      {/* PROBLEM + SOLUTION (single section) */}
       <section className="py-14 sm:py-20 relative overflow-hidden">
         <div className="absolute inset-0 grid-bg opacity-40" />
         <div className="container relative max-w-7xl px-4">
@@ -470,18 +337,24 @@ const Index = () => {
             </p>
           </div>
 
-          <MosaicStrip
-            height={340}
-            onImageClick={(src) => setZoomSrc(src)}
-            slots={[
-              { kind: "single", widthPct: 28, img: { src: themesDashboards, alt: "ثيمات Dashboard لإحصائيات الجهاز" } },
-              { kind: "single", widthPct: 26, img: { src: themesAnime, alt: "ثيمات أنمي متنوعة" } },
-              { kind: "pair", widthPct: 22,
-                top: { src: themesPiky, alt: "ثيم بيكاتشو" },
-                bottom: { src: themesEye, alt: "ثيم عين أنمي حمراء" } },
-              { kind: "single", widthPct: 24, img: { src: themesPiky, alt: "ثيم بيكاتشو وشخصيات أنمي" } },
-            ]}
-          />
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-5">
+            {[
+              { src: themesDashboards, alt: "ثيمات Dashboard لإحصائيات الجهاز" },
+              { src: themesAnime, alt: "ثيمات أنمي متنوعة" },
+              { src: themesPiky, alt: "ثيم بيكاتشو وشخصيات أنمي" },
+              { src: themesEye, alt: "ثيم عين أنمي حمراء" },
+            ].map((img) => (
+              <div key={img.src} className="group rgb-border overflow-hidden">
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full aspect-[3/4] object-cover rounded-2xl transition-transform duration-700 group-hover:scale-110 bg-muted"
+                />
+              </div>
+            ))}
+          </div>
 
           <div className="text-center pt-10 sm:pt-12">
             <CTAButton>اطلب الآن</CTAButton>
@@ -552,40 +425,35 @@ const Index = () => {
             </div>
           </div>
 
-          {/* Illustrative gallery — mosaic strip */}
-          <div className="mt-10 sm:mt-14">
-            <MosaicStrip
-              height={340}
-              onImageClick={(src) => setZoomSrc(src)}
-              slots={[
-                { kind: "single", widthPct: 28, img: { src: dimSize, alt: "أبعاد المنتج بالتفصيل — 130mm × 128mm" } },
-                { kind: "single", widthPct: 26, img: { src: dimCnc, alt: "هيكل ألمنيوم CNC مقاوم للخدوش" } },
-                { kind: "pair", widthPct: 22,
-                  top: { src: productSide, alt: "منظر جانبي للحامل" },
-                  bottom: { src: productScreen, alt: "شاشة IPS مدمجة" } },
-                { kind: "pair", widthPct: 24,
-                  top: { src: productCase, alt: "تركيب الحامل داخل الكيس" },
-                  bottom: { src: dimAccessories, alt: "محتويات العلبة والإكسسوارات" } },
-              ]}
-            />
+          {/* Illustrative gallery — uniform sizing */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mt-10 sm:mt-14">
+            {[
+              { src: dimCnc, alt: "هيكل ألمنيوم CNC مقاوم للخدوش" },
+              { src: dimSize, alt: "أبعاد المنتج بالتفصيل — 130mm × 128mm" },
+              { src: dimAccessories, alt: "محتويات العلبة والإكسسوارات" },
+            ].map((img) => (
+              <div key={img.src} className="group rgb-border overflow-hidden">
+                <div className="aspect-[4/5] w-full bg-background rounded-2xl overflow-hidden flex items-center justify-center">
+                  <img
+                    src={img.src}
+                    alt={img.alt}
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
+                  />
+                </div>
+              </div>
+            ))}
           </div>
 
           {/* Zoom Dialog */}
-          <Dialog
-            open={zoomIndex !== null || zoomSrc !== null}
-            onOpenChange={(o) => {
-              if (!o) {
-                setZoomIndex(null);
-                setZoomSrc(null);
-              }
-            }}
-          >
+          <Dialog open={zoomIndex !== null} onOpenChange={(o) => !o && setZoomIndex(null)}>
             <DialogContent className="max-w-3xl p-0 bg-card border-border overflow-hidden">
-              {(zoomIndex !== null || zoomSrc !== null) && (
+              {zoomIndex !== null && (
                 <div className="relative">
                   <img
-                    src={zoomSrc ?? galleryImages[zoomIndex!].src}
-                    alt={zoomIndex !== null ? galleryImages[zoomIndex].alt : ""}
+                    src={galleryImages[zoomIndex].src}
+                    alt={galleryImages[zoomIndex].alt}
                     className="w-full h-auto max-h-[85vh] object-contain bg-black"
                   />
                 </div>

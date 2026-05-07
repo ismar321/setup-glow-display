@@ -320,7 +320,36 @@ const Index = () => {
         </div>
       </section>
 
-      {/* PROBLEM + SOLUTION (single section) */}
+      {/* LIFESTYLE GALLERY — mosaic strip */}
+      <section className="py-12 sm:py-16 bg-card/30">
+        <div className="container max-w-7xl px-4">
+          <div className="text-center mb-8 sm:mb-10 space-y-2">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl">
+              صور <span className="text-gradient text-glow">المنتج</span>
+            </h2>
+            <p className="text-muted-foreground text-sm sm:text-base">
+              لقطات حقيقية للحامل داخل Setup
+            </p>
+          </div>
+          <MosaicStrip
+            height={340}
+            onImageClick={(src) => setZoomSrc(src)}
+            slots={[
+              { kind: "single", widthPct: 25, img: { src: productCase, alt: "حامل GPU داخل كيس PC" } },
+              { kind: "single", widthPct: 22, img: { src: productSide, alt: "منظر جانبي للحامل" } },
+              { kind: "pair", widthPct: 18,
+                top: { src: productScreen, alt: "شاشة IPS مدمجة" },
+                bottom: { src: productAnime, alt: "شاشة تعرض شخصية أنمي" } },
+              { kind: "pair", widthPct: 18,
+                top: { src: productStats, alt: "شاشة تعرض إحصائيات" },
+                bottom: { src: productCpu, alt: "شاشة تعرض استهلاك CPU" } },
+              { kind: "single", widthPct: 17, img: { src: productDashboard, alt: "Dashboard أنيقة" } },
+            ]}
+          />
+        </div>
+      </section>
+
+
       <section className="py-14 sm:py-20 relative overflow-hidden">
         <div className="absolute inset-0 grid-bg opacity-40" />
         <div className="container relative max-w-7xl px-4">

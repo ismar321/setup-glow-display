@@ -441,24 +441,18 @@ const Index = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-5">
-            {[
-              { src: themesDashboards, alt: "ثيمات Dashboard لإحصائيات الجهاز" },
-              { src: themesAnime, alt: "ثيمات أنمي متنوعة" },
-              { src: themesPiky, alt: "ثيم بيكاتشو وشخصيات أنمي" },
-              { src: themesEye, alt: "ثيم عين أنمي حمراء" },
-            ].map((img) => (
-              <div key={img.src} className="group rgb-border overflow-hidden">
-                <img
-                  src={img.src}
-                  alt={img.alt}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full h-full aspect-[3/4] object-cover rounded-2xl transition-transform duration-700 group-hover:scale-110 bg-muted"
-                />
-              </div>
-            ))}
-          </div>
+          <MosaicStrip
+            height={340}
+            onImageClick={(src) => setZoomSrc(src)}
+            slots={[
+              { kind: "single", widthPct: 28, img: { src: themesDashboards, alt: "ثيمات Dashboard لإحصائيات الجهاز" } },
+              { kind: "single", widthPct: 26, img: { src: themesAnime, alt: "ثيمات أنمي متنوعة" } },
+              { kind: "pair", widthPct: 22,
+                top: { src: themesPiky, alt: "ثيم بيكاتشو" },
+                bottom: { src: themesEye, alt: "ثيم عين أنمي حمراء" } },
+              { kind: "single", widthPct: 24, img: { src: themesPiky, alt: "ثيم بيكاتشو وشخصيات أنمي" } },
+            ]}
+          />
 
           <div className="text-center pt-10 sm:pt-12">
             <CTAButton>اطلب الآن</CTAButton>

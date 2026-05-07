@@ -523,35 +523,40 @@ const Index = () => {
             </div>
           </div>
 
-          {/* Illustrative gallery — uniform sizing */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mt-10 sm:mt-14">
-            {[
-              { src: dimCnc, alt: "هيكل ألمنيوم CNC مقاوم للخدوش" },
-              { src: dimSize, alt: "أبعاد المنتج بالتفصيل — 130mm × 128mm" },
-              { src: dimAccessories, alt: "محتويات العلبة والإكسسوارات" },
-            ].map((img) => (
-              <div key={img.src} className="group rgb-border overflow-hidden">
-                <div className="aspect-[4/5] w-full bg-background rounded-2xl overflow-hidden flex items-center justify-center">
-                  <img
-                    src={img.src}
-                    alt={img.alt}
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
-                  />
-                </div>
-              </div>
-            ))}
+          {/* Illustrative gallery — mosaic strip */}
+          <div className="mt-10 sm:mt-14">
+            <MosaicStrip
+              height={340}
+              onImageClick={(src) => setZoomSrc(src)}
+              slots={[
+                { kind: "single", widthPct: 28, img: { src: dimSize, alt: "أبعاد المنتج بالتفصيل — 130mm × 128mm" } },
+                { kind: "single", widthPct: 26, img: { src: dimCnc, alt: "هيكل ألمنيوم CNC مقاوم للخدوش" } },
+                { kind: "pair", widthPct: 22,
+                  top: { src: productSide, alt: "منظر جانبي للحامل" },
+                  bottom: { src: productScreen, alt: "شاشة IPS مدمجة" } },
+                { kind: "pair", widthPct: 24,
+                  top: { src: productCase, alt: "تركيب الحامل داخل الكيس" },
+                  bottom: { src: dimAccessories, alt: "محتويات العلبة والإكسسوارات" } },
+              ]}
+            />
           </div>
 
           {/* Zoom Dialog */}
-          <Dialog open={zoomIndex !== null} onOpenChange={(o) => !o && setZoomIndex(null)}>
+          <Dialog
+            open={zoomIndex !== null || zoomSrc !== null}
+            onOpenChange={(o) => {
+              if (!o) {
+                setZoomIndex(null);
+                setZoomSrc(null);
+              }
+            }}
+          >
             <DialogContent className="max-w-3xl p-0 bg-card border-border overflow-hidden">
-              {zoomIndex !== null && (
+              {(zoomIndex !== null || zoomSrc !== null) && (
                 <div className="relative">
                   <img
-                    src={galleryImages[zoomIndex].src}
-                    alt={galleryImages[zoomIndex].alt}
+                    src={zoomSrc ?? galleryImages[zoomIndex!].src}
+                    alt={zoomIndex !== null ? galleryImages[zoomIndex].alt : ""}
                     className="w-full h-auto max-h-[85vh] object-contain bg-black"
                   />
                 </div>

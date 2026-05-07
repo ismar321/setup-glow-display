@@ -46,6 +46,109 @@ const scrollToOrder = () => {
   document.getElementById("order")?.scrollIntoView({ behavior: "smooth" });
 };
 
+// Mosaic strip: horizontal row of slots. Each slot is either a single image
+// or a stacked pair (top + bottom). On mobile, falls back to a 2-col grid.
+type MosaicSlot =
+  | { kind: "single"; widthPct: number; img: { src: string; alt: string } }
+  | {
+      kind: "pair";
+      widthPct: number;
+      top: { src: string; alt: string };
+      bottom: { src: string; alt: string };
+    };
+
+const MosaicStrip = ({
+  slots,
+  height = 320,
+  onImageClick,
+}: {
+  slots: MosaicSlot[];
+  height?: number;
+  onImageClick?: (src: string) => void;
+}) => {
+  // Flatten all images for the mobile grid fallback
+  const flat: { src: string; alt: string }[] = slots.flatMap((s) =>
+    s.kind === "single" ? [s.img] : [s.top, s.bottom]
+  );
+
+  const imgClass =
+    "w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 bg-muted";
+  const wrapClass =
+    "group relative block w-full h-full overflow-hidden border border-white/10 cursor-zoom-in";
+
+  const renderImg = (img: { src: string; alt: string }, rounded: string) => (
+    <button
+      type="button"
+      onClick={() => onImageClick?.(img.src)}
+      className={`${wrapClass} ${rounded}`}
+      aria-label="تكبير الصورة"
+    >
+      <img src={img.src} alt={img.alt} loading="lazy" decoding="async" className={imgClass} />
+    </button>
+  );
+
+  return (
+    <>
+      {/* Desktop / tablet: horizontal mosaic strip */}
+      <div
+        className="hidden sm:flex w-full overflow-hidden rounded-xl"
+        style={{ height, gap: "4px" }}
+        dir="ltr"
+      >
+        {slots.map((slot, i) => {
+          const isFirst = i === 0;
+          const isLast = i === slots.length - 1;
+          const outer =
+            isFirst && isLast
+              ? "rounded-xl"
+              : isFirst
+              ? "rounded-l-xl"
+              : isLast
+              ? "rounded-r-xl"
+              : "";
+          return (
+            <div key={i} style={{ width: `${slot.widthPct}%` }} className="h-full shrink-0">
+              {slot.kind === "single" ? (
+                renderImg(slot.img, outer)
+              ) : (
+                <div className="flex flex-col h-full" style={{ gap: "4px" }}>
+                  <div className="h-1/2">
+                    {renderImg(
+                      slot.top,
+                      isFirst ? "rounded-tl-xl" : isLast ? "rounded-tr-xl" : ""
+                    )}
+                  </div>
+                  <div className="h-1/2">
+                    {renderImg(
+                      slot.bottom,
+                      isFirst ? "rounded-bl-xl" : isLast ? "rounded-br-xl" : ""
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Mobile: 2 per row */}
+      <div className="sm:hidden grid grid-cols-2 gap-1">
+        {flat.map((img, i) => (
+          <button
+            key={i}
+            type="button"
+            onClick={() => onImageClick?.(img.src)}
+            className="group relative block aspect-[3/4] overflow-hidden rounded-xl border border-white/10 cursor-zoom-in"
+            aria-label="تكبير الصورة"
+          >
+            <img src={img.src} alt={img.alt} loading="lazy" decoding="async" className={imgClass} />
+          </button>
+        ))}
+      </div>
+    </>
+  );
+};
+
 const CTAButton = ({
   children = "اطلب الآن",
   className = "",

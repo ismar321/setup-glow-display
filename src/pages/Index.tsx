@@ -177,6 +177,7 @@ const Index = () => {
     { src: productDashboard, alt: "شاشة Dashboard أنيقة" },
   ];
   const [zoomIndex, setZoomIndex] = useState<number | null>(null);
+  const [zoomSrc, setZoomSrc] = useState<string | null>(null);
   const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
   const autoplay = useRef(Autoplay({ delay: 3500, stopOnInteraction: false, stopOnMouseEnter: true }));

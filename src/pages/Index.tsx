@@ -1,4 +1,13 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
+import { wilayas } from "@/data/algeria";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import Autoplay from "embla-carousel-autoplay";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -77,6 +86,14 @@ const Index = () => {
   const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
   const autoplay = useRef(Autoplay({ delay: 3500, stopOnInteraction: false, stopOnMouseEnter: true }));
+  const navigate = useNavigate();
+  const [wilayaCode, setWilayaCode] = useState<string>("");
+  const [commune, setCommune] = useState<string>("");
+  const [color, setColor] = useState<"أبيض" | "أسود">("أسود");
+  const communes = useMemo(
+    () => wilayas.find((w) => w.code === wilayaCode)?.communes ?? [],
+    [wilayaCode],
+  );
 
   useEffect(() => {
     if (!carouselApi) return;
@@ -111,8 +128,8 @@ const Index = () => {
         <div className="absolute top-20 -left-20 w-96 h-96 rounded-full bg-primary/20 blur-3xl" />
         <div className="absolute bottom-10 -right-20 w-96 h-96 rounded-full bg-[hsl(var(--rgb-purple))]/20 blur-3xl" />
 
-        <div className="container relative py-10 sm:py-14 md:py-20 px-4 grid lg:grid-cols-2 gap-8 sm:gap-12 items-center">
-          <div className="space-y-5 sm:space-y-6 text-center lg:text-right fade-in">
+        <div className="container relative py-10 sm:py-14 md:py-20 px-4 grid lg:grid-cols-5 gap-8 sm:gap-12 items-center">
+          <div className="space-y-5 sm:space-y-6 text-center lg:text-right fade-in lg:col-span-2">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-card border border-border shadow-card">
               <Sparkles className="w-4 h-4 text-[hsl(var(--rgb-cyan))]" />
               <span className="text-sm font-bold">جديد · إصدار محدود</span>
@@ -156,13 +173,13 @@ const Index = () => {
             </div>
           </div>
 
-          <div className="relative">
+          <div className="relative lg:col-span-3">
             <div className="absolute inset-0 bg-gradient-rgb opacity-20 blur-3xl rounded-full" />
             <Carousel
               setApi={setCarouselApi}
               opts={{ align: "center", loop: true, direction: "rtl" }}
               plugins={[autoplay.current]}
-              className="relative w-full max-w-md lg:max-w-lg mx-auto"
+              className="relative w-full max-w-md sm:max-w-xl lg:max-w-none mx-auto"
             >
               <CarouselContent className="-ml-2 sm:-ml-4">
                 {galleryImages.map((img, i) => (
@@ -179,8 +196,8 @@ const Index = () => {
                         loading={i === 0 ? "eager" : "lazy"}
                         decoding="async"
                         fetchPriority={i === 0 ? "high" : "low"}
-                        sizes="(max-width: 640px) 90vw, 32rem"
-                        className="rounded-2xl w-full aspect-square object-cover transition-transform duration-700 ease-out group-hover:scale-110 bg-muted"
+                        sizes="(max-width: 640px) 90vw, (max-width: 1024px) 80vw, 60vw"
+                        className="rounded-2xl w-full aspect-[4/3] lg:aspect-[16/10] object-cover transition-transform duration-700 ease-out group-hover:scale-110 bg-muted"
                       />
                       <span className="absolute bottom-3 right-3 flex items-center gap-1 px-3 py-1.5 rounded-full bg-background/80 backdrop-blur-sm border border-border text-xs font-bold">
                         <ZoomIn className="w-3.5 h-3.5 text-[hsl(var(--rgb-cyan))]" /> تكبير
@@ -502,7 +519,8 @@ const Index = () => {
               className="space-y-3 sm:space-y-4 text-right"
               onSubmit={(e) => {
                 e.preventDefault();
-                alert("شكراً! راح نتصلو بيك قريب لتأكيد الطلبية.");
+                if (!wilayaCode || !commune) return;
+                navigate("/thank-you");
               }}
             >
               <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
@@ -518,17 +536,88 @@ const Index = () => {
                   className="w-full px-4 sm:px-5 py-3 sm:py-4 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-ring text-right"
                 />
               </div>
+
+              <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
+                <Select
+                  value={wilayaCode}
+                  onValueChange={(v) => {
+                    setWilayaCode(v);
+                    setCommune("");
+                  }}
+                  required
+                >
+                  <SelectTrigger className="h-auto px-4 sm:px-5 py-3 sm:py-4 rounded-xl border-border bg-background text-right">
+                    <SelectValue placeholder="اختر الولاية" />
+                  </SelectTrigger>
+                  <SelectContent className="max-h-72">
+                    {wilayas.map((w) => (
+                      <SelectItem key={w.code} value={w.code} className="text-right">
+                        {w.code} - {w.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+
+                <Select
+                  value={commune}
+                  onValueChange={setCommune}
+                  disabled={!wilayaCode}
+                  required
+                >
+                  <SelectTrigger className="h-auto px-4 sm:px-5 py-3 sm:py-4 rounded-xl border-border bg-background text-right disabled:opacity-60">
+                    <SelectValue placeholder={wilayaCode ? "اختر البلدية" : "اختر الولاية أولاً"} />
+                  </SelectTrigger>
+                  <SelectContent className="max-h-72">
+                    {communes.map((c) => (
+                      <SelectItem key={c} value={c} className="text-right">
+                        {c}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
               <input
                 required
-                placeholder="الولاية / العنوان"
+                placeholder="العنوان بالتفصيل"
                 className="w-full px-4 sm:px-5 py-3 sm:py-4 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-ring text-right"
               />
+
+              {/* Color selector */}
+              <div className="space-y-2 pt-1">
+                <label className="block text-sm font-bold text-foreground/80">اختر اللون</label>
+                <div className="grid grid-cols-2 gap-3">
+                  {([
+                    { value: "أبيض", swatch: "bg-white border-border", text: "text-black" },
+                    { value: "أسود", swatch: "bg-black border-border", text: "text-white" },
+                  ] as const).map((opt) => {
+                    const active = color === opt.value;
+                    return (
+                      <button
+                        key={opt.value}
+                        type="button"
+                        onClick={() => setColor(opt.value)}
+                        className={`flex items-center justify-center gap-3 px-4 py-3 rounded-xl border-2 transition-all ${
+                          active
+                            ? "border-primary shadow-blue scale-[1.02]"
+                            : "border-border hover:border-primary/50"
+                        }`}
+                      >
+                        <span className={`w-7 h-7 rounded-full border-2 ${opt.swatch}`} />
+                        <span className="font-bold">{opt.value}</span>
+                        {active && <Check className="w-4 h-4 text-[hsl(var(--rgb-cyan))]" />}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
               <Button
                 type="submit"
                 size="lg"
                 className="w-full bg-gradient-primary text-primary-foreground hover:opacity-95 shadow-glow text-base sm:text-xl font-black py-6 sm:py-7 rounded-2xl animate-pulse-glow"
               >
-                اطلب الآن وطور Setup تاعك 🚀
+                تأكيد الطلب 🚀
               </Button>
             </form>
           </Card>

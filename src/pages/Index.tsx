@@ -519,7 +519,8 @@ const Index = () => {
               className="space-y-3 sm:space-y-4 text-right"
               onSubmit={(e) => {
                 e.preventDefault();
-                alert("شكراً! راح نتصلو بيك قريب لتأكيد الطلبية.");
+                if (!wilayaCode || !commune) return;
+                navigate("/thank-you");
               }}
             >
               <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
@@ -535,17 +536,88 @@ const Index = () => {
                   className="w-full px-4 sm:px-5 py-3 sm:py-4 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-ring text-right"
                 />
               </div>
+
+              <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
+                <Select
+                  value={wilayaCode}
+                  onValueChange={(v) => {
+                    setWilayaCode(v);
+                    setCommune("");
+                  }}
+                  required
+                >
+                  <SelectTrigger className="h-auto px-4 sm:px-5 py-3 sm:py-4 rounded-xl border-border bg-background text-right">
+                    <SelectValue placeholder="اختر الولاية" />
+                  </SelectTrigger>
+                  <SelectContent className="max-h-72">
+                    {wilayas.map((w) => (
+                      <SelectItem key={w.code} value={w.code} className="text-right">
+                        {w.code} - {w.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+
+                <Select
+                  value={commune}
+                  onValueChange={setCommune}
+                  disabled={!wilayaCode}
+                  required
+                >
+                  <SelectTrigger className="h-auto px-4 sm:px-5 py-3 sm:py-4 rounded-xl border-border bg-background text-right disabled:opacity-60">
+                    <SelectValue placeholder={wilayaCode ? "اختر البلدية" : "اختر الولاية أولاً"} />
+                  </SelectTrigger>
+                  <SelectContent className="max-h-72">
+                    {communes.map((c) => (
+                      <SelectItem key={c} value={c} className="text-right">
+                        {c}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
               <input
                 required
-                placeholder="الولاية / العنوان"
+                placeholder="العنوان بالتفصيل"
                 className="w-full px-4 sm:px-5 py-3 sm:py-4 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-ring text-right"
               />
+
+              {/* Color selector */}
+              <div className="space-y-2 pt-1">
+                <label className="block text-sm font-bold text-foreground/80">اختر اللون</label>
+                <div className="grid grid-cols-2 gap-3">
+                  {([
+                    { value: "أبيض", swatch: "bg-white border-border", text: "text-black" },
+                    { value: "أسود", swatch: "bg-black border-border", text: "text-white" },
+                  ] as const).map((opt) => {
+                    const active = color === opt.value;
+                    return (
+                      <button
+                        key={opt.value}
+                        type="button"
+                        onClick={() => setColor(opt.value)}
+                        className={`flex items-center justify-center gap-3 px-4 py-3 rounded-xl border-2 transition-all ${
+                          active
+                            ? "border-primary shadow-blue scale-[1.02]"
+                            : "border-border hover:border-primary/50"
+                        }`}
+                      >
+                        <span className={`w-7 h-7 rounded-full border-2 ${opt.swatch}`} />
+                        <span className="font-bold">{opt.value}</span>
+                        {active && <Check className="w-4 h-4 text-[hsl(var(--rgb-cyan))]" />}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
               <Button
                 type="submit"
                 size="lg"
                 className="w-full bg-gradient-primary text-primary-foreground hover:opacity-95 shadow-glow text-base sm:text-xl font-black py-6 sm:py-7 rounded-2xl animate-pulse-glow"
               >
-                اطلب الآن وطور Setup تاعك 🚀
+                تأكيد الطلب 🚀
               </Button>
             </form>
           </Card>

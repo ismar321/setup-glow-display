@@ -86,6 +86,14 @@ const Index = () => {
   const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
   const autoplay = useRef(Autoplay({ delay: 3500, stopOnInteraction: false, stopOnMouseEnter: true }));
+  const navigate = useNavigate();
+  const [wilayaCode, setWilayaCode] = useState<string>("");
+  const [commune, setCommune] = useState<string>("");
+  const [color, setColor] = useState<"أبيض" | "أسود">("أسود");
+  const communes = useMemo(
+    () => wilayas.find((w) => w.code === wilayaCode)?.communes ?? [],
+    [wilayaCode],
+  );
 
   useEffect(() => {
     if (!carouselApi) return;

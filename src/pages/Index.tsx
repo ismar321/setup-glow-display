@@ -20,7 +20,7 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { ZoomIn } from "lucide-react";
+import { ZoomIn, Loader2 } from "lucide-react";
 import {
   Shield,
   Sparkles,

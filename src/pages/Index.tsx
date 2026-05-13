@@ -90,6 +90,10 @@ const Index = () => {
   const [wilayaCode, setWilayaCode] = useState<string>("");
   const [commune, setCommune] = useState<string>("");
   const [color, setColor] = useState<"أبيض" | "أسود">("أسود");
+  const [fullName, setFullName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [submitting, setSubmitting] = useState(false);
   const communes = useMemo(
     () => wilayas.find((w) => w.code === wilayaCode)?.communes ?? [],
     [wilayaCode],

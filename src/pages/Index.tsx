@@ -525,12 +525,12 @@ const Index = () => {
                 e.preventDefault();
                 if (!wilayaCode || !commune || submitting) return;
                 const wilayaName = wilayas.find((w) => w.code === wilayaCode)?.name ?? "";
-                const payload = {
-                  fullName,
-                  phone,
-                  wilaya: `${wilayaCode} - ${wilayaName}`,
-                  communeAndAddress: `${commune} - ${address}`,
-                  color,
+                const orderData = {
+                  name: fullName,
+                  phone: phone,
+                  state: `${wilayaCode} - ${wilayaName}`,
+                  city: `${commune} - ${address}`,
+                  color: color,
                 };
                 setSubmitting(true);
                 try {
@@ -539,13 +539,14 @@ const Index = () => {
                     {
                       method: "POST",
                       mode: "no-cors",
-                      headers: { "Content-Type": "text/plain;charset=utf-8" },
-                      body: JSON.stringify(payload),
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify(orderData),
                     },
                   );
-                  navigate("/thank-you");
-                } catch (err) {
-                  console.error("Order submission failed", err);
+                  window.location.href = "/thank-you";
+                } catch (error) {
+                  console.error(error);
+                  alert("حدث خطأ أثناء إرسال الطلب");
                   setSubmitting(false);
                 }
               }}

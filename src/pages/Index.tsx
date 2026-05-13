@@ -535,7 +535,7 @@ const Index = () => {
                 setSubmitting(true);
                 try {
                   await fetch(
-                    "https://script.google.com/macros/s/AKfycbw3bnlA6hu7plEZ7a6LNhUOt-js1imBcdxt97T5Zryj1nIKpiFaveI_Ardm-0pscTZN/exec",
+                    "https://script.google.com/macros/s/AKfycbwyqf4c2m5gqRFDMdrUl8U5A41nSVuV5DXbdV4uvtshWVhXGNhdU6r2o1Ka4Xn34Kdc/exec",
                     {
                       method: "POST",
                       mode: "no-cors",

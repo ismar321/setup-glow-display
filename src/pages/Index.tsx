@@ -521,21 +521,48 @@ const Index = () => {
 
             <form
               className="space-y-3 sm:space-y-4 text-right"
-              onSubmit={(e) => {
+              onSubmit={async (e) => {
                 e.preventDefault();
-                if (!wilayaCode || !commune) return;
-                navigate("/thank-you");
+                if (!wilayaCode || !commune || submitting) return;
+                const wilayaName = wilayas.find((w) => w.code === wilayaCode)?.name ?? "";
+                const payload = {
+                  fullName,
+                  phone,
+                  wilaya: `${wilayaCode} - ${wilayaName}`,
+                  communeAndAddress: `${commune} - ${address}`,
+                  color,
+                };
+                setSubmitting(true);
+                try {
+                  await fetch(
+                    "https://script.google.com/macros/s/AKfycbw3bnlA6hu7plEZ7a6LNhUOt-js1imBcdxt97T5Zryj1nIKpiFaveI_Ardm-0pscTZN/exec",
+                    {
+                      method: "POST",
+                      mode: "no-cors",
+                      headers: { "Content-Type": "text/plain;charset=utf-8" },
+                      body: JSON.stringify(payload),
+                    },
+                  );
+                  navigate("/thank-you");
+                } catch (err) {
+                  console.error("Order submission failed", err);
+                  setSubmitting(false);
+                }
               }}
             >
               <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
                 <input
                   required
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
                   placeholder="الاسم الكامل"
                   className="w-full px-4 sm:px-5 py-3 sm:py-4 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-ring text-right"
                 />
                 <input
                   required
                   type="tel"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
                   placeholder="رقم الهاتف"
                   className="w-full px-4 sm:px-5 py-3 sm:py-4 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-ring text-right"
                 />
@@ -583,6 +610,8 @@ const Index = () => {
 
               <input
                 required
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
                 placeholder="العنوان بالتفصيل"
                 className="w-full px-4 sm:px-5 py-3 sm:py-4 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-ring text-right"
               />
@@ -619,10 +648,19 @@ const Index = () => {
               <Button
                 type="submit"
                 size="lg"
-                className="w-full bg-gradient-primary text-primary-foreground hover:opacity-95 shadow-glow text-base sm:text-xl font-black py-6 sm:py-7 rounded-2xl animate-pulse-glow"
+                disabled={submitting}
+                className="w-full bg-gradient-primary text-primary-foreground hover:opacity-95 shadow-glow text-base sm:text-xl font-black py-6 sm:py-7 rounded-2xl animate-pulse-glow disabled:opacity-80"
               >
-                تأكيد الطلب 🚀
+                {submitting ? (
+                  <>
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    جاري الإرسال...
+                  </>
+                ) : (
+                  <>تأكيد الطلب 🚀</>
+                )}
               </Button>
+            </form>
             </form>
           </Card>
         </div>

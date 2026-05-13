@@ -661,7 +661,6 @@ const Index = () => {
                 )}
               </Button>
             </form>
-            </form>
           </Card>
         </div>
       </section>

@@ -298,7 +298,7 @@ const Index = () => {
           </div>
 
           {/* Row 2: Centered large video */}
-          <div className="mt-8 sm:mt-10 mx-auto w-full" style={{ maxWidth: "900px" }}>
+          <div className="mt-8 sm:mt-10 mx-auto w-full" style={{ maxWidth: "1200px" }}>
             <div className="rounded-2xl overflow-hidden video-glow bg-card border border-border rgb-border aspect-video">
               <video
                 src="https://res.cloudinary.com/dtnljybtv/video/upload/v1778748551/LSA_hpktlj.mp4"

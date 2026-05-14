@@ -299,17 +299,15 @@ const Index = () => {
 
           {/* Row 2: Centered large video */}
           <div className="mt-8 sm:mt-10 mx-auto w-full" style={{ maxWidth: "900px" }}>
-            <div className="rounded-2xl overflow-hidden video-glow bg-card border border-border rgb-border">
+            <div className="rounded-2xl overflow-hidden video-glow bg-card border border-border rgb-border aspect-video">
               <video
-                src=""
-                controls
+                src="https://res.cloudinary.com/dtnljybtv/video/upload/v1778748551/LSA_hpktlj.mp4"
                 autoPlay
                 muted
                 loop
                 playsInline
                 poster={productDashboard}
-                className="w-full h-auto block bg-black"
-                style={{ minHeight: "500px" }}
+                className="w-full h-full object-cover block bg-black"
               >
                 المتصفح لا يدعم تشغيل الفيديو.
               </video>

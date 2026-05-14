@@ -50,6 +50,7 @@ import themesEye from "@/assets/themes-eye.png";
 import dimCnc from "@/assets/dim-cnc.jpg";
 import dimSize from "@/assets/dim-size.jpg";
 import dimAccessories from "@/assets/dim-accessories.jpg";
+import productHeroMain from "@/assets/product-hero-main.png";
 
 const scrollToOrder = () => {
   document.getElementById("order")?.scrollIntoView({ behavior: "smooth" });
@@ -74,13 +75,10 @@ const CTAButton = ({
 
 const Index = () => {
   const galleryImages = [
-    { src: productCase, alt: "حامل GPU داخل كيس PC أبيض" },
+    { src: productHeroMain, alt: "حامل GPU متوفر بلونين أبيض و أسود مع شاشة IPS" },
+    { src: productCase, alt: "حامل GPU داخل كيس PC" },
     { src: productScreen, alt: "شاشة IPS مدمجة في الحامل" },
-    { src: productSide, alt: "منظر جانبي للحامل" },
-    { src: productAnime, alt: "شاشة الحامل تعرض شخصية أنمي" },
-    { src: productStats, alt: "شاشة تعرض إحصائيات الجهاز ووقت" },
-    { src: productCpu, alt: "شاشة تعرض استهلاك CPU" },
-    { src: productDashboard, alt: "شاشة Dashboard أنيقة" },
+    { src: productAnime, alt: "شاشة الحامل تعرض ثيم أنمي" },
   ];
   const [zoomIndex, setZoomIndex] = useState<number | null>(null);
   const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null);
@@ -152,6 +150,7 @@ const Index = () => {
                 "يحمي كرت الشاشة من الانحناء وكسر اللوحة الأم",
                 'شاشة "4.58 للحرارة، الأداء، ثيمات، GIF، فيديوهات',
                 "تصميم Gaming احترافي يزيد جمالية Setup",
+                "متوفر بلونين: أبيض و أسود",
               ].map((t) => (
                 <li key={t} className="flex items-center gap-3 justify-center lg:justify-start text-right">
                   <span className="w-7 h-7 rounded-full bg-gradient-primary flex items-center justify-center shrink-0 shadow-blue">

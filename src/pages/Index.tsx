@@ -229,8 +229,8 @@ const Index = () => {
       </section>
 
       {/* PROBLEM + SOLUTION */}
-      <section className="py-14 sm:py-20 relative overflow-hidden bg-white/50">
-        <div className="absolute inset-0 grid-bg opacity-20" />
+      <section className="py-14 sm:py-20 relative overflow-hidden bg-gradient-to-b from-blue-50 to-white">
+        <div className="absolute inset-0 grid-bg opacity-15" />
         <div className="container relative max-w-7xl px-4">
           <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 items-start mb-10 sm:mb-12">
             {/* Solution column */}
@@ -312,8 +312,8 @@ const Index = () => {
       </section>
 
       {/* VMAX SOFTWARE */}
-      <section className="py-16 sm:py-24 relative overflow-hidden bg-gradient-hero">
-        <div className="absolute inset-0 grid-bg opacity-20" />
+      <section className="py-16 sm:py-24 relative overflow-hidden bg-gradient-to-br from-sky-50 via-blue-50 to-white">
+        <div className="absolute inset-0 grid-bg opacity-15" />
         <div className="absolute top-1/4 right-1/3 w-96 h-96 rounded-full bg-primary/5 blur-3xl" />
         <div className="absolute -bottom-10 left-1/4 w-80 h-80 rounded-full bg-accent/4 blur-3xl" />
         <div className="container relative max-w-6xl px-4">
@@ -372,7 +372,7 @@ const Index = () => {
       </section>
 
       {/* DIMENSIONS & INSTALLATION */}
-      <section className="py-14 sm:py-20 bg-white/50">
+      <section className="py-14 sm:py-20 bg-white">
         <div className="container max-w-6xl px-4">
           <div className="text-center mb-10 sm:mb-12 space-y-3">
             <h2 className="text-2xl sm:text-3xl md:text-5xl font-black">
@@ -477,8 +477,8 @@ const Index = () => {
       </section>
 
       {/* ORDER FORM */}
-      <section id="order" className="py-14 sm:py-20 relative overflow-hidden bg-gradient-hero">
-        <div className="absolute inset-0 grid-bg opacity-30" />
+      <section id="order" className="py-14 sm:py-20 relative overflow-hidden bg-gradient-to-b from-blue-50 via-white to-white">
+        <div className="absolute inset-0 grid-bg opacity-15" />
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-80 bg-primary/6 blur-3xl rounded-full" />
         <div className="container relative max-w-2xl px-4">
           <Card className="p-6 sm:p-8 md:p-10 bg-white border-primary/15 shadow-card text-center">
@@ -512,6 +512,8 @@ const Index = () => {
               onSubmit={async (e) => {
                 e.preventDefault();
                 if (!wilayaCode || !commune || !fullName || !phone || submitting) return;
+
+                setSubmitting(true);
                 const wilayaName = wilayas.find((w) => w.code === wilayaCode)?.name ?? "";
                 const orderData = {
                   name: fullName,
@@ -520,9 +522,10 @@ const Index = () => {
                   city: `${commune} - ${address}`,
                   color: color,
                 };
-                setSubmitting(true);
+
                 try {
-                  await fetch(
+                  // Send request without waiting for response
+                  fetch(
                     "https://script.google.com/macros/s/AKfycbwyqf4c2m5gqRFDMdrUl8U5A41nSVuV5DXbdV4uvtshWVhXGNhdU6r2o1Ka4Xn34Kdc/exec",
                     {
                       method: "POST",
@@ -530,11 +533,12 @@ const Index = () => {
                       headers: { "Content-Type": "application/json" },
                       body: JSON.stringify(orderData),
                     },
-                  );
+                  ).catch(() => {});
+
+                  // Redirect immediately without waiting
                   window.location.href = "/thank-you";
                 } catch (error) {
                   console.error(error);
-                  alert("حدث خطأ أثناء إرسال الطلب");
                   setSubmitting(false);
                 }
               }}
@@ -659,7 +663,7 @@ const Index = () => {
       </section>
 
       {/* FOOTER */}
-      <footer className="py-10 border-t border-primary/10 bg-white/50">
+      <footer className="py-10 border-t border-primary/10 bg-white">
         <div className="container text-center space-y-3">
           <div className="flex items-center justify-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-gradient-primary flex items-center justify-center shadow-blue">
